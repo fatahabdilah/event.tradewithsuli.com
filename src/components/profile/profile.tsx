@@ -75,7 +75,7 @@ export function Profile() {
         <div className="absolute inset-0 bg-[#2a62ff] mix-blend-color" />
       </div>
 
-      <div className="relative mx-auto flex h-[631px] w-[1440px] flex-col items-start px-[232px] py-[109px] max-lg:h-auto max-lg:w-full max-lg:items-center max-lg:px-5 max-lg:pt-8 max-lg:pb-16">
+      <div className="relative mx-auto flex h-[631px] w-[1440px] flex-col items-start px-[232px] py-[109px] max-lg:h-auto max-lg:w-full max-lg:items-center max-lg:px-5 max-lg:pt-[48px] max-lg:pb-16">
         <div className="flex items-center gap-[40px] max-lg:w-full max-lg:max-w-[560px] max-lg:flex-col max-lg:gap-8">
           <div data-reveal className="relative size-[413px] shrink-0 overflow-hidden rounded-[12px] max-lg:aspect-square max-lg:size-auto max-lg:w-full max-lg:max-w-[413px]">
             <Image
