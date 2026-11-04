@@ -1,8 +1,58 @@
 @import "tailwindcss";
 
+/* Neue Montreal is a licensed font — drop the files into public/fonts to enable it. */
+@font-face {
+  font-family: "Neue Montreal";
+  src:
+    local("Neue Montreal Regular"),
+    local("NeueMontreal-Regular"),
+    url("/fonts/NeueMontreal-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src:
+    local("Neue Montreal Medium"),
+    local("NeueMontreal-Medium"),
+    url("/fonts/NeueMontreal-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src:
+    local("Neue Montreal Bold"),
+    local("NeueMontreal-Bold"),
+    url("/fonts/NeueMontreal-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Until the licensed files are added: Arial scaled to Neue Montreal's width (Figma "Bull Run 2027" @36px = 216px,
+   Arial = 226.2px → 95.5%), so text wraps and fits like the design instead of overflowing. */
+@font-face {
+  font-family: "Neue Montreal Fallback";
+  src: local("Arial"), local("ArialMT"), local("Helvetica");
+  font-weight: 400 500;
+  size-adjust: 95.5%;
+}
+
+@font-face {
+  font-family: "Neue Montreal Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Bold");
+  font-weight: 600 700;
+  size-adjust: 95.5%;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
 }
 
 @theme inline {
@@ -10,17 +60,197 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-montreal: "Neue Montreal", "Neue Montreal Fallback", var(--font-geist-sans), sans-serif;
+  --font-bebas: var(--font-bebas-neue), sans-serif;
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  /* Hero entrance — pair with [animation-delay:…] to stagger. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-hero-scene: hero-scene 1.8s var(--ease-out-expo) both;
+  --animate-hero-fade: hero-fade 1.6s ease-out both;
+  --animate-hero-rise: hero-rise 1.4s var(--ease-out-expo) both;
+  --animate-hero-pop: hero-pop 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-hero-up: hero-up 1s var(--ease-out-expo) both;
+  --animate-hero-down: hero-down 0.9s var(--ease-out-expo) both;
+  --animate-coin-float: coin-float 6s ease-in-out infinite;
+
+  @keyframes hero-scene {
+    from {
+      opacity: 0;
+      transform: scale(1.12);
+    }
+  }
+  @keyframes hero-fade {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(220px);
+      filter: blur(12px);
+    }
+    40% {
+      opacity: 1;
+    }
+  }
+  /* Coin flies out from behind the person (--coin-from-x/y) toward the viewer. */
+  @keyframes hero-pop {
+    from {
+      opacity: 0;
+      transform: translate(var(--coin-from-x), var(--coin-from-y)) scale(0.15) rotate(-20deg);
+      filter: blur(14px);
+    }
+    20% {
+      opacity: 1;
+    }
+    70% {
+      transform: scale(1.08);
+      filter: blur(0);
+    }
+  }
+  @keyframes hero-up {
+    from {
+      opacity: 0;
+      transform: translateY(32px);
+      filter: blur(6px);
+    }
+  }
+  @keyframes hero-down {
+    from {
+      opacity: 0;
+      transform: translateY(-24px);
+    }
+  }
+  @keyframes coin-float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-12px) rotate(2deg);
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Phones/tablets: same entrance motion without animating blur filters (costly full-layer re-rasters). */
+@keyframes hero-rise-lite {
+  from {
+    opacity: 0;
+    transform: translateY(160px);
+  }
+}
+@keyframes hero-pop-lite {
+  from {
+    opacity: 0;
+    transform: translate(var(--coin-from-x), var(--coin-from-y)) scale(0.15) rotate(-20deg);
+  }
+  70% {
+    transform: scale(1.08);
+  }
+}
+@keyframes hero-up-lite {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+/* Phones/tablets: the hero art (coins, scene, photo) appears without entrance animation. Each animated
+   layer would be rasterised at its full 1440px design size, which exhausts GPU memory in mobile Safari. */
+@media (max-width: 1023px) {
+  .hero-art [class*="animate-"] {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .animate-hero-rise {
+    animation-name: hero-rise-lite;
+  }
+  .animate-hero-pop {
+    animation-name: hero-pop-lite;
+  }
+  .animate-hero-up {
+    animation-name: hero-up-lite;
+  }
+}
+
+/* Scroll reveal (see components/scroll-reveal.tsx). Only hides content once JS has flagged the page,
+   so nothing stays invisible if scripts fail. Uses transform + opacity only. */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+}
+.reveal-ready [data-reveal][data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+
+/* CTA countdown: digits roll up when they change (new digit rises in, old one rises out). */
+@keyframes digit-in {
+  from {
+    opacity: 0;
+    transform: translateY(80%);
+  }
+}
+@keyframes digit-out {
+  to {
+    opacity: 0;
+    transform: translateY(-80%);
+  }
+}
+.animate-digit-in {
+  animation: digit-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-digit-out {
+  animation: digit-out 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-digit-in,
+  .animate-digit-out {
+    animation: none;
+  }
+  .animate-digit-out {
+    display: none;
+  }
+
+  .reveal-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  [class*="animate-hero-"],
+  [class*="animate-coin-"] {
+    animation: none !important;
+  }
+}
+
+/* Desktop: the 1440px composition scales down on 1024–1439px viewports (--zoom set in layout.tsx).
+   Below 1024px each section switches to its own stacked mobile/tablet layout instead. */
+@media (min-width: 1024px) {
+  .page-zoom {
+    zoom: var(--zoom, 1);
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-montreal);
 }

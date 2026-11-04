@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="19.9183" height="4.88472" viewBox="0 0 19.9183 4.88472" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="traffic-light">
+<path id="close" d="M2.44236 4.69685C3.68748 4.69685 4.69685 3.68748 4.69685 2.44236C4.69685 1.19724 3.68748 0.187874 2.44236 0.187874C1.19724 0.187874 0.187874 1.19724 0.187874 2.44236C0.187874 3.68748 1.19724 4.69685 2.44236 4.69685Z" fill-rule="evenodd" clip-rule="evenodd" fill="#F04A4E" stroke-width="0.375748" stroke="#CE3F43"/>
+<path id="minimize" d="M9.95484 4.69685C11.2 4.69685 12.2093 3.68748 12.2093 2.44236C12.2093 1.19724 11.2 0.187874 9.95484 0.187874C8.70972 0.187874 7.70035 1.19724 7.70035 2.44236C7.70035 3.68748 8.70972 4.69685 9.95484 4.69685Z" fill-rule="evenodd" clip-rule="evenodd" fill="#FFC53D" stroke-width="0.375748" stroke="#FAAD14"/>
+<path id="expand" d="M17.476 4.69685C18.7211 4.69685 19.7305 3.68748 19.7305 2.44236C19.7305 1.19724 18.7211 0.187874 17.476 0.187874C16.2309 0.187874 15.2215 1.19724 15.2215 2.44236C15.2215 3.68748 16.2309 4.69685 17.476 4.69685Z" fill-rule="evenodd" clip-rule="evenodd" fill="#00B27D" stroke-width="0.375748" stroke="#00996B"/>
+</g>
+</svg>
