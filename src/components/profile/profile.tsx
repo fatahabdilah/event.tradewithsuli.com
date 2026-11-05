@@ -28,7 +28,7 @@ function HypeTicker() {
       <div className="flex w-[170px] shrink-0 flex-col items-start gap-[12px]">
         <div className="flex h-[38px] w-full items-center border-b border-[#1a1a1a] pb-[14px]">
           <div className="flex min-w-px flex-1 items-center gap-[10px]">
-            <img alt="" className="size-[24px] shrink-0" src="/profile/hype.png" width={24} height={24} />
+            <Image alt="" className="size-[24px] shrink-0" src="/profile/hype.png" width={24} height={24} sizes="24px" />
             <p className="whitespace-nowrap font-montreal text-[16px] font-medium leading-normal text-white">Hyperliquid</p>
             <p className="whitespace-nowrap font-montreal text-[14px] leading-normal text-white opacity-60">$HYPE</p>
           </div>
@@ -70,7 +70,7 @@ export function Profile() {
       {/* No transform here: it would create a stacking context and stop the blends reaching the dots. */}
       <div aria-hidden className="pointer-events-none absolute top-0 left-[calc(50%-720px)] h-[260px] w-[1440px]">
         <div className="absolute inset-0 -scale-y-100 overflow-hidden mix-blend-screen">
-          <img alt="" className="absolute top-[0.07%] left-0 h-[134.06%] w-full max-w-none" src="/profile/glow.png" />
+          <Image alt="" width={736} height={542} sizes="(max-width: 1023px) 100vw, 1440px" className="absolute top-[0.07%] left-0 h-[134.06%] w-full max-w-none" src="/profile/glow.png" />
         </div>
         <div className="absolute inset-0 bg-[#2a62ff] mix-blend-color" />
       </div>

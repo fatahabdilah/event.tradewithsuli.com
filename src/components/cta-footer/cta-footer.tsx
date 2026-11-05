@@ -14,7 +14,7 @@ function Glow({ dx, mobile = false }: { dx: number; mobile?: boolean }) {
       style={{ left: `calc(50% + ${dx}px)` }}
     >
       <div className="relative h-[1393.812px] w-[1009.201px] flex-none rotate-15">
-        <img alt="" className="absolute top-[-8.61%] left-[-11.89%] block h-[117.22%] w-[123.78%] max-w-none" src={`${IMG}/glow.png`} />
+        <Image alt="" width={312} height={408} sizes="312px" className="absolute top-[-8.61%] left-[-11.89%] block h-[117.22%] w-[123.78%] max-w-none" src={`${IMG}/glow.png`} />
       </div>
     </div>
   );

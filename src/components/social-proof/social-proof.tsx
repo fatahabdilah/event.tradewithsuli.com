@@ -25,7 +25,7 @@ type Call = {
 function Avatar({ src, crop }: { src: string; crop?: CSSProperties }) {
   return (
     <span className="relative size-[29.787px] shrink-0 overflow-hidden rounded-full">
-      <img alt="" className={crop ? "absolute max-w-none" : "size-full object-cover"} style={crop} src={`${IMG}/${src}`} />
+      <Image alt="" width={120} height={120} sizes="34px" className={crop ? "absolute max-w-none" : "size-full object-cover"} style={crop} src={`${IMG}/${src}`} />
     </span>
   );
 }
@@ -156,7 +156,7 @@ function CallCard({ call, desktopOnly, delay }: { call: Call; desktopOnly?: bool
         className="pointer-events-none absolute left-1/2 h-[233.085px] w-[466.17px] -translate-x-1/2"
         style={{ top: call.lightTop }}
       >
-        <img alt="" className="absolute top-[-127.8%] left-[-63.9%] block h-[355.6%] w-[227.8%] max-w-none" src={`${IMG}/${call.light}`} />
+        <Image alt="" width={265} height={207} sizes="265px" className="absolute top-[-127.8%] left-[-63.9%] block h-[355.6%] w-[227.8%] max-w-none" src={`${IMG}/${call.light}`} />
       </div>
 
       <header className="relative flex w-full items-center gap-[11.915px] px-[11.915px] pt-[17.872px] pb-[11.915px]">

@@ -180,14 +180,17 @@ function timeline(ms: number) {
 export function Episodes() {
   const [active, setActive] = useState(0);
   const worm = useRef<HTMLSpanElement>(null);
+  const section = useRef<HTMLElement>(null);
   const elapsed = useRef(msAt(DOT_X[0]));
   const paused = useRef(false);
   const current = useRef(0);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce), (max-width: 1023px)").matches) return;
-    let last = performance.now();
-    let frame = requestAnimationFrame(function tick(now) {
+    // Only animate while the section is on screen; the loop stops entirely when it scrolls away.
+    let frame = 0;
+    let last = 0;
+    const tick = (now: number) => {
       if (!paused.current) elapsed.current = (elapsed.current + now - last) % CYCLE_MS;
       last = now;
       const { head, index, fade } = timeline(elapsed.current);
@@ -201,8 +204,18 @@ export function Episodes() {
         setActive(index);
       }
       frame = requestAnimationFrame(tick);
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      cancelAnimationFrame(frame);
+      if (!entry.isIntersecting) return;
+      last = performance.now();
+      frame = requestAnimationFrame(tick);
     });
-    return () => cancelAnimationFrame(frame);
+    if (section.current) observer.observe(section.current);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   const select = (i: number) => {
@@ -215,7 +228,7 @@ export function Episodes() {
   };
 
   return (
-    <section id="episodes" className="relative w-full overflow-hidden bg-black text-white">
+    <section ref={section} id="episodes" className="relative w-full overflow-hidden bg-black text-white">
       {/* Horizontal rules reach both screen edges, darkening outside the 1440 frame on wide screens. */}
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[200px] h-px bg-white/20 max-lg:hidden" style={RULE_FADE} />
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[751px] h-px bg-white/20 max-lg:hidden" style={RULE_FADE} />

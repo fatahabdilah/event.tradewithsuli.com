@@ -21,6 +21,8 @@ function layerStyle({ w, h, m }: Layer): CSSProperties {
   };
 }
 
+const COIN_MASK = 'url("/_next/image?url=%2Fhero%2Fcoin-base.png&w=1080&q=75")';
+
 // Region of coin-base.png that Figma's image crop shows on every coin body.
 const COIN_CROP = { x: 0.3075, y: 0.21037, w: 0.385, h: 0.6563 };
 
@@ -122,28 +124,29 @@ function Coin({ delay, float, blur, trail: rawTrail, coin: rawCoin, tint: rawTin
           </div>
           <div className="overflow-hidden" style={layerStyle(coin)}>
             {/* Figma fill uses saturation -1; the overlay tint below supplies the coin color. */}
-            <img alt="" className="absolute max-w-none grayscale" style={base} src="/hero/coin-base.png" />
+            <Image alt="" width={1200} height={675} sizes="480px" className="absolute max-w-none grayscale" style={base} src="/hero/coin-base.png" />
           </div>
           <div
             className="mix-blend-overlay"
             style={{
               ...layerStyle(tint),
               backgroundColor: tint.color,
-              maskImage: 'url("/hero/coin-base.png")',
+              // Optimized (AVIF/WebP) copy instead of the raw 133KB PNG.
+              maskImage: COIN_MASK,
               maskMode: "alpha",
               maskRepeat: "no-repeat",
               maskSize: `${mask.width}px ${mask.height}px`,
               maskPosition: `${mask.left}px ${mask.top}px`,
             }}
           />
-          <img alt="" className="block max-w-none" style={layerStyle(face)} src={face.src} />
+          <Image alt="" width={283} height={277} sizes="180px" className="block max-w-none" style={layerStyle(face)} src={face.src} />
         </div>
       </div>
     </div>
   );
 }
 
-function ArrowIcon({ variant }: { variant: "dark" | "light" }) {
+function ArrowIcon({ variant }: { variant: "light" }) {
   return (
     <span className="relative size-[16px] shrink-0">
       <img alt="" className="absolute inset-0 block size-full max-w-none" src={`/hero/icon-arrow-${variant}.svg`} />
@@ -211,14 +214,14 @@ function HeroArt() {
         <div className="absolute top-[-897px] left-[729px] flex h-[1742.06px] w-[2854.777px] items-center justify-center mix-blend-color-dodge animate-hero-fade [animation-delay:300ms] max-lg:hidden">
           <div className="flex-none rotate-[-85.82deg]">
             <div className="relative h-[2749.425px] w-[1545.779px] opacity-70">
-              <img alt="" className="absolute inset-0 size-full max-w-none object-cover [filter:hue-rotate(75deg)_saturate(0.35)_brightness(0.6)]" src="/hero/light-rays.png" />
+              <Image alt="" fill sizes="(max-width: 1023px) 16px, 1546px" className="max-w-none object-cover [filter:hue-rotate(75deg)_saturate(0.35)_brightness(0.6)]" src="/hero/light-rays.png" />
             </div>
           </div>
         </div>
         <div className="absolute top-[-897px] left-[-2125.77px] flex h-[1742.06px] w-[2854.777px] items-center justify-center mix-blend-color-dodge animate-hero-fade [animation-delay:300ms] max-lg:hidden">
           <div className="flex-none rotate-[-94.18deg] -scale-y-100">
             <div className="relative h-[2749.425px] w-[1545.779px] opacity-70">
-              <img alt="" className="absolute inset-0 size-full max-w-none object-cover [filter:hue-rotate(75deg)_saturate(0.35)_brightness(0.6)]" src="/hero/light-rays.png" />
+              <Image alt="" fill sizes="(max-width: 1023px) 16px, 1546px" className="max-w-none object-cover [filter:hue-rotate(75deg)_saturate(0.35)_brightness(0.6)]" src="/hero/light-rays.png" />
             </div>
           </div>
         </div>
@@ -309,7 +312,7 @@ function HeroArt() {
       <div className="absolute top-[-551px] left-[-561px] flex h-[2185.517px] w-[3884.043px] items-center justify-center mix-blend-overlay max-lg:hidden">
         <div className="flex-none -rotate-90">
           <div className="relative h-[3884.043px] w-[2185.517px] opacity-50">
-            <img alt="" className="absolute inset-0 size-full max-w-none object-cover" src="/hero/grain.png" />
+            <Image alt="" fill sizes="(max-width: 1023px) 16px, 2186px" className="max-w-none object-cover" src="/hero/grain.png" />
           </div>
         </div>
       </div>
