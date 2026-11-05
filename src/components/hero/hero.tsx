@@ -35,7 +35,9 @@ function coinCrop({ w, h }: Layer) {
 // Point behind Suli's torso that coins emerge from during the entrance.
 const PERSON_CENTER = { x: 720, y: 380 };
 
-type CoinProps = {
+export type CoinProps = {
+  /** Point (frame coordinates) the coin flies out from during the entrance; defaults to behind Suli's torso. */
+  from?: { x: number; y: number };
   /** Entrance delay in ms. */
   delay: number;
   /** Duration of the idle float loop in seconds. */
@@ -59,7 +61,7 @@ function corners({ w, h, m: [a, b, c, d, e, f] }: Layer, pad = 0) {
 
 // A floating crypto coin: motion trail, coin body, color tint and coin face. The coin lives in a box sized to its
 // own bounds (not the whole 1440×888 frame), so its blur/float/entrance layers stay small on phones.
-function Coin({ delay, float, blur, trail: rawTrail, coin: rawCoin, tint: rawTint, face: rawFace }: CoinProps) {
+export function Coin({ from = PERSON_CENTER, delay, float, blur, trail: rawTrail, coin: rawCoin, tint: rawTint, face: rawFace }: CoinProps) {
   const spill = (blur ?? 0) * 3 + 4;
   const pts = [...corners(rawTrail, rawTrail.pad), ...corners(rawCoin), ...corners(rawFace)];
   const box = {
@@ -91,8 +93,8 @@ function Coin({ delay, float, blur, trail: rawTrail, coin: rawCoin, tint: rawTin
           height: box.b - box.y,
           transformOrigin: origin,
           animationDelay: `${delay}ms`,
-          "--coin-from-x": `${PERSON_CENTER.x - cx}px`,
-          "--coin-from-y": `${PERSON_CENTER.y - cy}px`,
+          "--coin-from-x": `${from.x - cx}px`,
+          "--coin-from-y": `${from.y - cy}px`,
         } as CSSProperties
       }
     >
@@ -146,7 +148,7 @@ function Coin({ delay, float, blur, trail: rawTrail, coin: rawCoin, tint: rawTin
   );
 }
 
-function ArrowIcon({ variant }: { variant: "light" }) {
+export function ArrowIcon({ variant }: { variant: "light" }) {
   return (
     <span className="relative size-[16px] shrink-0">
       <img alt="" className="absolute inset-0 block size-full max-w-none" src={`/hero/icon-arrow-${variant}.svg`} />
@@ -343,44 +345,51 @@ export function UrgencyBar() {
   );
 }
 
+/** Logo + register nav, shared by both hero versions. */
+export function HeroHeader() {
+  return (
+    <header className="relative z-10 flex w-full flex-col items-start">
+      {/* Room for the fixed <UrgencyBar /> so the hero layout stays as designed. */}
+      <div aria-hidden className="h-[48px] w-full shrink-0 max-lg:h-[40px]" />
+
+      <nav className="mx-auto flex w-full max-w-[1440px] animate-hero-down items-center justify-between px-[80px] py-[20px] [animation-delay:350ms] max-lg:px-5 max-lg:py-4">
+        <div className="flex items-center gap-[16px] overflow-clip">
+          <img alt="TWS" className="block h-[32px] w-[84px]" src="/hero/tws-logo.svg" />
+          <div className="h-[28px] w-px bg-white/25 max-sm:hidden" />
+          <div className="whitespace-nowrap font-mono text-[12px] leading-[16px] font-medium tracking-[0.96px] max-sm:hidden">
+            <p>BULL RUN 2027</p>
+            <p className="font-normal text-white/55">LIVE EVENT</p>
+          </div>
+        </div>
+        {/* Figma 461:260281 */}
+        <a
+          href={REGISTER_HREF}
+          className="relative flex items-center justify-center gap-[10px] rounded-[62px] border border-white px-[20px] py-[6px] transition-opacity [filter:drop-shadow(0px_31px_9.5px_rgba(42,98,255,0.13))_drop-shadow(0px_14px_10px_rgba(42,98,255,0.12))] hover:opacity-90 max-lg:px-4 max-lg:py-[5px] max-sm:gap-[6px] max-sm:px-3"
+        >
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0 rounded-[62px] bg-[linear-gradient(99.06deg,#1447d6_1.4587%,#204fd3_36.588%,#4c79f2_81.52%,#779cff_96.534%)]"
+          />
+          <span className="relative flex">
+            <ArrowIcon variant="light" />
+          </span>
+          <span className="relative whitespace-nowrap font-montreal text-[18px] leading-[1.4] font-medium text-white max-lg:text-[15px] max-sm:text-[12.5px]">
+            DAFTAR SEKARANG <strong className="font-bold">GRATIS</strong>
+          </span>
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0px_-2.135px_2px_0px_rgba(255,255,255,0.25),inset_0px_3.202px_6.405px_0px_rgba(255,255,255,0.25)]"
+          />
+        </a>
+      </nav>
+    </header>
+  );
+}
+
 export function Hero() {
   return (
     <section className="relative isolate flex w-full flex-col overflow-hidden bg-black text-white max-lg:min-h-svh lg:h-[max(888px,calc(100svh/var(--zoom,1)))]">
-      <header className="relative z-10 flex w-full flex-col items-start">
-        {/* Room for the fixed <UrgencyBar /> so the hero layout stays as designed. */}
-        <div aria-hidden className="h-[48px] w-full shrink-0 max-lg:h-[40px]" />
-
-        <nav className="mx-auto flex w-full max-w-[1440px] animate-hero-down items-center justify-between px-[80px] py-[20px] [animation-delay:350ms] max-lg:px-5 max-lg:py-4">
-          <div className="flex items-center gap-[16px] overflow-clip">
-            <img alt="TWS" className="block h-[32px] w-[84px]" src="/hero/tws-logo.svg" />
-            <div className="h-[28px] w-px bg-white/25 max-sm:hidden" />
-            <div className="whitespace-nowrap font-mono text-[12px] leading-[16px] font-medium tracking-[0.96px] max-sm:hidden">
-              <p>BULL RUN 2027</p>
-              <p className="font-normal text-white/55">LIVE EVENT</p>
-            </div>
-          </div>
-          {/* Figma 461:260281 */}
-          <a
-            href={REGISTER_HREF}
-            className="relative flex items-center justify-center gap-[10px] rounded-[62px] border border-white px-[20px] py-[6px] transition-opacity [filter:drop-shadow(0px_31px_9.5px_rgba(42,98,255,0.13))_drop-shadow(0px_14px_10px_rgba(42,98,255,0.12))] hover:opacity-90 max-lg:px-4 max-lg:py-[5px] max-sm:gap-[6px] max-sm:px-3"
-          >
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-[62px] bg-[linear-gradient(99.06deg,#1447d6_1.4587%,#204fd3_36.588%,#4c79f2_81.52%,#779cff_96.534%)]"
-            />
-            <span className="relative flex">
-              <ArrowIcon variant="light" />
-            </span>
-            <span className="relative whitespace-nowrap font-montreal text-[18px] leading-[1.4] font-medium text-white max-lg:text-[15px] max-sm:text-[12.5px]">
-              DAFTAR SEKARANG <strong className="font-bold">GRATIS</strong>
-            </span>
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0px_-2.135px_2px_0px_rgba(255,255,255,0.25),inset_0px_3.202px_6.405px_0px_rgba(255,255,255,0.25)]"
-            />
-          </a>
-        </nav>
-      </header>
+      <HeroHeader />
 
       {/* Mobile stage: the scaled art sits on its bottom edge and its faded lower part runs under the copy.
           Desktop: `contents`, so the art stays positioned against the section. */}
