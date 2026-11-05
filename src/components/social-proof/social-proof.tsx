@@ -253,7 +253,7 @@ export function SocialProof() {
                 className="pointer-events-none absolute inset-0 rounded-[60px] bg-[linear-gradient(97.74deg,#1447d6_1.4587%,#204fd3_36.588%,#4c79f2_81.52%,#779cff_96.534%)]"
               />
               <img alt="" className="relative size-[16px]" src="/hero/icon-arrow-light.svg" />
-              <span className="relative whitespace-nowrap font-montreal text-[18px] font-medium leading-[1.4]">Gabung Sekarang</span>
+              <span className="relative whitespace-nowrap font-montreal text-[18px] font-medium leading-[1.4]">DAFTAR SEKARANG <strong className="font-bold">GRATIS</strong></span>
               <span
                 aria-hidden
                 className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0px_-2.135px_2px_0px_rgba(255,255,255,0.25),inset_0px_3.202px_6.405px_0px_rgba(255,255,255,0.25)]"

@@ -82,7 +82,7 @@ function Cta() {
                 />
                 <img alt="" className="relative size-[16px]" src="/hero/icon-arrow-light.svg" />
                 <span className="relative whitespace-nowrap font-montreal text-[18px] font-medium leading-[1.4] text-white">
-                  Gabung Sekarang
+                  DAFTAR SEKARANG <strong className="font-bold">GRATIS</strong>
                 </span>
                 <span
                   aria-hidden

@@ -358,7 +358,7 @@ export function Hero() {
           {/* Figma 461:260281 */}
           <a
             href={REGISTER_HREF}
-            className="relative flex items-center justify-center gap-[10px] rounded-[62px] border border-white px-[20px] py-[6px] transition-opacity [filter:drop-shadow(0px_31px_9.5px_rgba(42,98,255,0.13))_drop-shadow(0px_14px_10px_rgba(42,98,255,0.12))] hover:opacity-90 max-lg:px-4 max-lg:py-[5px]"
+            className="relative flex items-center justify-center gap-[10px] rounded-[62px] border border-white px-[20px] py-[6px] transition-opacity [filter:drop-shadow(0px_31px_9.5px_rgba(42,98,255,0.13))_drop-shadow(0px_14px_10px_rgba(42,98,255,0.12))] hover:opacity-90 max-lg:px-4 max-lg:py-[5px] max-sm:gap-[6px] max-sm:px-3"
           >
             <span
               aria-hidden
@@ -367,8 +367,8 @@ export function Hero() {
             <span className="relative flex">
               <ArrowIcon variant="light" />
             </span>
-            <span className="relative whitespace-nowrap font-montreal text-[18px] leading-[1.4] font-medium text-white max-lg:text-[15px]">
-              Gabung Sekarang
+            <span className="relative whitespace-nowrap font-montreal text-[18px] leading-[1.4] font-medium text-white max-lg:text-[15px] max-sm:text-[12.5px]">
+              DAFTAR SEKARANG <strong className="font-bold">GRATIS</strong>
             </span>
             <span
               aria-hidden
