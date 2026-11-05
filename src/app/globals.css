@@ -238,8 +238,20 @@
   }
 }
 
-/* Desktop: the 1440px composition scales down on 1024–1439px viewports (--zoom set in layout.tsx).
-   Below 1024px each section switches to its own stacked mobile/tablet layout instead. */
+/* Desktop: the 1440px composition scales down on 1024–1439px viewports.
+   Below 1024px each section switches to its own stacked mobile/tablet layout instead.
+   --zoom = page width / 1440 (max 1), computed in CSS so it updates in the same frame as a resize or browser
+   zoom (a resize listener lags a frame behind and makes the page flicker). tan(atan2(a, b)) divides two lengths
+   into a plain number; registering the property resolves it once here instead of inside the zoomed page.
+   --scrollbar (classic scrollbar width, 0 on overlay scrollbars) is kept up to date by layout.tsx. */
+@property --zoom {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+:root {
+  --zoom: min(1, tan(atan2(100vw - var(--scrollbar, 0px), 1440px)));
+}
 @media (min-width: 1024px) {
   .page-zoom {
     zoom: var(--zoom, 1);

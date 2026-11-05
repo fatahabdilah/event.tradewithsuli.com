@@ -402,8 +402,10 @@ export function Hero() {
         <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[calc(100%-40px)] h-[200px] bg-gradient-to-b from-black/0 via-black/80 via-60% to-black sm:h-[285px] md:h-[390px] lg:hidden" />
       </div>
 
-      <div className="absolute top-[calc((100%-888px)/2+565px)] left-1/2 h-0 w-[1440px] -translate-x-1/2 max-lg:relative max-lg:z-10 max-lg:top-auto max-lg:left-auto max-lg:flex max-lg:h-auto max-lg:w-full max-lg:translate-x-0 max-lg:flex-col max-lg:items-center max-lg:gap-5 max-lg:px-5 max-lg:text-center">
-        <div className="absolute top-0 left-[80px] flex w-[508.021px] flex-col items-start justify-center gap-[19.353px] max-lg:static max-lg:w-full max-lg:max-w-[600px] max-lg:items-center max-lg:gap-3">
+      {/* Both columns share one row so their top and bottom edges line up: the live chip with the kicker, the CTA
+          with the headline's baseline. */}
+      <div className="absolute top-[calc((100%-888px)/2+565px)] left-1/2 flex w-[1440px] -translate-x-1/2 items-stretch justify-between px-[80px] max-lg:relative max-lg:z-10 max-lg:top-auto max-lg:left-auto max-lg:flex max-lg:h-auto max-lg:w-full max-lg:translate-x-0 max-lg:flex-col max-lg:items-center max-lg:gap-5 max-lg:px-5 max-lg:text-center">
+        <div className="flex w-[508.021px] flex-col items-start justify-center gap-[19.353px] max-lg:w-full max-lg:max-w-[600px] max-lg:items-center max-lg:gap-3">
           <p className="animate-hero-up whitespace-nowrap font-montreal text-[25.804px] leading-[1.2] uppercase [animation-delay:900ms] max-lg:text-[15px] max-lg:whitespace-normal sm:max-lg:text-[20px]">
             2017 lu kelewat. 2021 lu juga kelewat
           </p>
@@ -413,7 +415,7 @@ export function Hero() {
         </div>
 
         {/* Figma 460:260106: live chip, copy, then price (Rp 0 + struck-through normal price tag) and the CTA. */}
-        <div className="absolute top-[-14px] left-[802px] flex w-[554px] flex-col items-start gap-[24px] max-lg:static max-lg:w-full max-lg:max-w-[600px] max-lg:items-center max-lg:gap-5">
+        <div className="flex w-[554px] flex-col items-start justify-between gap-[24px] max-lg:w-full max-lg:max-w-[600px] max-lg:items-center max-lg:gap-5">
           <div className="flex animate-hero-up items-center gap-[14.348px] [animation-delay:1200ms] max-lg:gap-[10px]">
             <span className="relative size-[14px] shrink-0 rounded-full bg-red-600 max-lg:size-[10px]">
               <span className="absolute inset-0 rounded-full bg-red-600 animate-live-pulse" />
@@ -426,7 +428,7 @@ export function Hero() {
             Suli bedah cara siap-siap sebelum bullrun berikutnya, live selama 4 malam. Tanpa pengalaman, tanpa modal
             besar, tanpa bayar.
           </p>
-          <div className="flex animate-hero-up items-center gap-[20px] px-[8px] py-[8px] [animation-delay:1400ms] max-lg:w-full max-lg:flex-col max-lg:gap-4 max-lg:px-0">
+          <div className="flex animate-hero-up items-center gap-[20px] px-[8px] pt-[8px] [animation-delay:1400ms] lg:mb-[-6px] max-lg:pb-[8px] max-lg:w-full max-lg:flex-col max-lg:gap-4 max-lg:px-0">
             <p className="flex w-[221px] shrink-0 items-center justify-center gap-[20px] whitespace-nowrap max-lg:w-auto">
               <span className="sr-only">Harga normal Rp 2.799.000, sekarang</span>
               <span className="font-montreal text-[42.029px] leading-normal font-bold text-white max-sm:text-[34px]">Rp 0</span>

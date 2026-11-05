@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 
 // Desktop (≥1024px) keeps the 1440px design and scales it to the viewport via --zoom (see .page-zoom).
 // Runs before paint so laptops never flash the unscaled layout.
-const ZOOM_SCRIPT = `(function(){var d=document.documentElement;d.classList.add("reveal-ready");function s(){d.style.setProperty("--zoom",String(Math.min(1,d.clientWidth/1440)))}s();addEventListener("resize",s)})()`;
+const ZOOM_SCRIPT = `(function(){var d=document.documentElement;d.classList.add("reveal-ready");function s(){d.style.setProperty("--scrollbar",innerWidth-d.clientWidth+"px")}s();addEventListener("resize",s)})()`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
