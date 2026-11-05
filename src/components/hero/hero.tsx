@@ -352,31 +352,29 @@ function HeroArt() {
 /** Blue countdown bar, fixed to the top of the viewport (rendered once, at page level, above every section). */
 export function UrgencyBar() {
   return (
-    <div className="fixed inset-x-0 top-0 z-50 h-[48px] w-full border-b border-white/10 bg-[#2a62ff] lg:backdrop-blur-[12px] animate-hero-down [animation-delay:200ms] max-lg:h-[40px]">
-      <div className="relative mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-3 px-[80px] max-lg:px-4 max-sm:gap-2 max-sm:px-3">
+    <div className="fixed inset-x-0 top-0 z-50 h-[48px] w-full border-b border-white/10 bg-[#2a62ff] lg:backdrop-blur-[12px] animate-hero-down [animation-delay:200ms] max-lg:h-[40px] max-sm:h-[68px]">
+      <div className="relative mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-3 px-[80px] max-lg:px-4 max-sm:flex-col max-sm:justify-center max-sm:gap-[6px]">
         <div className="flex items-center gap-[10px] max-sm:gap-2">
           <span className="relative size-[6px] shrink-0 rounded-full bg-white">
             <span className="absolute inset-0 rounded-full bg-white animate-live-pulse" />
           </span>
           <div className="flex items-center gap-[14px] font-mono tracking-[0.96px] text-white/55 max-sm:gap-2 max-sm:tracking-[0.3px] max-sm:[&_p]:text-[10px]">
-            {/* Phones drop the label so the countdown and the CTA share the bar. */}
-            <p className="whitespace-nowrap text-[12px] leading-normal max-sm:hidden">PENDAFTARAN DITUTUP DALAM</p>
+            <p className="whitespace-nowrap text-[12px] leading-normal max-[359px]:hidden">
+              <span className="max-sm:hidden">PENDAFTARAN </span>DITUTUP DALAM
+            </p>
             <Countdown deadline={REGISTRATION_DEADLINE} />
           </div>
         </div>
 
-        {/* The header CTA lives here so it stays on screen while scrolling; white so it reads on the blue bar. */}
+        {/* The header CTA lives here so it stays on screen while scrolling; white so it reads on the blue bar.
+            Phones stack it under the countdown so both keep their full text. */}
         <a
           href={REGISTER_HREF}
-          className="flex shrink-0 items-center gap-[6px] rounded-full bg-white py-[6px] pr-[14px] pl-[8px] transition-opacity hover:opacity-90 max-lg:py-[5px] max-lg:pr-[10px] max-lg:pl-[6px] max-sm:px-[10px]"
+          className="flex shrink-0 items-center gap-[6px] rounded-full bg-white py-[6px] pr-[14px] pl-[8px] transition-opacity hover:opacity-90 max-lg:py-[5px] max-lg:pr-[10px] max-lg:pl-[6px] max-sm:py-[4px]"
         >
-          <span className="flex max-sm:hidden">
-            <ArrowIcon variant="light" />
-          </span>
-          <span className="whitespace-nowrap font-montreal text-[13px] leading-none font-medium text-[#2a62ff] max-sm:text-[11px]">
-            <span className="max-sm:hidden">DAFTAR SEKARANG </span>
-            <span className="sm:hidden">DAFTAR </span>
-            <strong className="font-bold">GRATIS</strong>
+          <ArrowIcon variant="light" />
+          <span className="whitespace-nowrap font-montreal text-[13px] leading-none font-medium text-[#2a62ff] max-sm:text-[12px]">
+            DAFTAR SEKARANG <strong className="font-bold">GRATIS</strong>
           </span>
         </a>
       </div>
@@ -387,7 +385,7 @@ export function HeroHeader() {
   return (
     <header className="relative z-10 flex w-full flex-col items-start">
       {/* Room for the fixed <UrgencyBar /> so the hero layout stays as designed. */}
-      <div aria-hidden className="h-[48px] w-full shrink-0 max-lg:h-[40px]" />
+      <div aria-hidden className="h-[48px] w-full shrink-0 max-lg:h-[40px] max-sm:h-[68px]" />
 
       <nav className="mx-auto flex w-full max-w-[1440px] animate-hero-down items-center justify-between px-[80px] py-[20px] [animation-delay:350ms] max-lg:px-5 max-lg:py-4">
         <div className="flex items-center gap-[16px] overflow-clip">
