@@ -12,7 +12,8 @@ function RollingDigit({ value }: { value: string }) {
   if (value !== roll.current) setRoll({ current: value, previous: roll.current, key: roll.key + 1 });
 
   return (
-    <span className="relative inline-block w-[1ch] text-center">
+    // Clipped so the digit rolling in/out never shows over the unit label below.
+    <span className="relative inline-block w-[1ch] overflow-hidden text-center">
       <span key={`in-${roll.key}`} className={`inline-block ${roll.key ? "animate-digit-in" : ""}`}>
         {roll.current}
       </span>

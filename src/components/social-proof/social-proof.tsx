@@ -228,7 +228,7 @@ export function SocialProof() {
         </div>
 
         <div className="relative h-[1181px] w-[1440px] max-lg:flex max-lg:h-auto max-lg:w-full max-lg:max-w-[630px] max-lg:flex-col max-lg:gap-10">
-          <div className="absolute inset-x-0 top-[-80px] h-[1124px] overflow-clip lg:[mask-image:linear-gradient(180deg,#000_0,#000_998.5px,transparent_1124px)] max-lg:static max-lg:flex max-lg:h-auto max-lg:flex-col max-lg:gap-5">
+          <div className="absolute inset-x-0 top-[-80px] h-[1124px] overflow-clip lg:[mask-image:linear-gradient(180deg,#000_0,#000_998.5px,transparent_1124px)] max-lg:static max-lg:flex max-lg:h-auto max-lg:flex-col max-lg:gap-5 max-lg:overflow-visible">
             {COLUMNS.map((column, i) => (
               <div
                 key={i}
