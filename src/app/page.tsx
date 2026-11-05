@@ -4,7 +4,6 @@ import { Episodes } from "@/components/episodes/episodes";
 import { Hero, UrgencyBar } from "@/components/hero/hero";
 import { Profile } from "@/components/profile/profile";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { SocialProof } from "@/components/social-proof/social-proof";
 
 export default function Home() {
   return (
@@ -13,7 +12,6 @@ export default function Home() {
       <Hero />
       <Profile />
       <Episodes />
-      <SocialProof />
       <DetailEvent />
       <CtaFooter />
       <ScrollReveal />

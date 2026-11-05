@@ -5,7 +5,6 @@ import { UrgencyBar } from "@/components/hero/hero";
 import { HeroV2 } from "@/components/hero/hero-v2";
 import { Profile } from "@/components/profile/profile";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { SocialProof } from "@/components/social-proof/social-proof";
 
 // Same landing page with the second hero version (Figma 461:260325).
 export default function HomeV2() {
@@ -15,7 +14,6 @@ export default function HomeV2() {
       <HeroV2 />
       <Profile />
       <Episodes />
-      <SocialProof />
       <DetailEvent />
       <CtaFooter />
       <ScrollReveal />

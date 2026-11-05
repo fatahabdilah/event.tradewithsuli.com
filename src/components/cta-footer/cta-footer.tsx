@@ -131,12 +131,13 @@ function Footer() {
   );
 }
 
-export function CtaFooter() {
+/** Closing CTA card, followed by the site footer unless `footer` is false. */
+export function CtaFooter({ footer = true }: { footer?: boolean }) {
   return (
     <section className="w-full bg-black text-white">
       <div className="mx-auto flex w-[1440px] flex-col items-start justify-center gap-[48px] px-[80px] py-[40px] max-lg:w-full max-lg:gap-10 max-lg:px-5 max-lg:pb-10">
         <Cta />
-        <Footer />
+        {footer && <Footer />}
       </div>
     </section>
   );
