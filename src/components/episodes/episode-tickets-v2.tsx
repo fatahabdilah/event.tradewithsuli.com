@@ -61,6 +61,15 @@ const TICKETS: Ticket[] = [
 
 // Trims the line box to the capitals, as in Figma, so `top` places the letters themselves.
 const CAP_TRIM = "[text-box:trim-both_cap_alphabetic]";
+
+const DOT_PATTERN: CSSProperties = {
+  backgroundImage: `url(${IMG}/pixels.png)`,
+  // 1200px tile with a 24px dot pitch, scaled to Figma's ~5.25px pitch on the ticket.
+  backgroundSize: "262.5px 262.5px",
+  maskImage: `url(${IMG}/v-main.svg)`,
+  maskSize: "100% 100%",
+  maskRepeat: "no-repeat",
+};
 // Gradient text paints only inside its box, so the cap-trimmed box is padded to also cover round letters that
 // overshoot the cap line (the 3, 0, 2); the stops are in px so the gradient sits where Figma puts it.
 const DAY_FADE = "bg-[linear-gradient(to_bottom,#fff_20px,rgb(153_153_153/0)_97.5px)] bg-clip-text text-transparent";
@@ -79,6 +88,9 @@ function TicketCard({ ticket, delay }: { ticket: Ticket; delay: number }) {
       <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-[374px] w-[905px] origin-top-left translate-x-[374px] rotate-90">
         <img alt="" className="absolute top-0 left-[-0.33px] h-[374px] w-[713px] max-w-none" src={`${IMG}/v-main.svg`} />
         <img alt="" className="absolute top-0 left-[-0.33px] h-[374px] w-[713px] max-w-none" src={`${IMG}/v-glow-${ticket.day}.svg`} />
+        {/* Figma's "pixels" overlay: white dots of random strength, overlay-blended so they only show on the lit
+            glow; kept to the ticket body's outline so the notches stay clear. */}
+        <div className="absolute top-0 left-[-0.33px] h-[374px] w-[713px] mix-blend-overlay" style={DOT_PATTERN} />
         <img alt="" className="absolute top-[0.11px] left-[712.66px] h-[373.886px] w-[192.332px] max-w-none" src={`${IMG}/v-stub.svg`} />
         {/* 10% white border tracing each half's outline (notches included); the SVGs are padded 1px so it isn't clipped. */}
         <img alt="" className="absolute top-[-1px] left-[-1.33px] h-[376px] w-[715px] max-w-none" src={`${IMG}/v-main-outline.svg`} />

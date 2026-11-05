@@ -352,23 +352,37 @@ function HeroArt() {
 /** Blue countdown bar, fixed to the top of the viewport (rendered once, at page level, above every section). */
 export function UrgencyBar() {
   return (
-    <div className="fixed inset-x-0 top-0 z-50 flex h-[48px] w-full items-center justify-center border-b border-white/10 bg-[#2a62ff] px-[80px] lg:backdrop-blur-[12px] animate-hero-down [animation-delay:200ms] max-lg:h-[40px] max-lg:px-4">
-      <div className="flex items-center gap-[10px]">
-        <span className="relative size-[6px] shrink-0 rounded-full bg-white">
-          <span className="absolute inset-0 rounded-full bg-white animate-live-pulse" />
-        </span>
-        <div className="flex items-center gap-[14px] font-mono tracking-[0.96px] text-white/55 max-sm:gap-2 max-sm:tracking-[0.3px] max-sm:[&_p]:text-[10px]">
-          <p className="whitespace-nowrap text-[12px] leading-normal">
-            <span className="max-sm:hidden">PENDAFTARAN </span>DITUTUP DALAM
-          </p>
-          <Countdown deadline={REGISTRATION_DEADLINE} />
+    <div className="fixed inset-x-0 top-0 z-50 h-[48px] w-full border-b border-white/10 bg-[#2a62ff] lg:backdrop-blur-[12px] animate-hero-down [animation-delay:200ms] max-lg:h-[40px]">
+      <div className="relative mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-3 px-[80px] max-lg:px-4 max-sm:gap-2 max-sm:px-3">
+        <div className="flex items-center gap-[10px] max-sm:gap-2">
+          <span className="relative size-[6px] shrink-0 rounded-full bg-white">
+            <span className="absolute inset-0 rounded-full bg-white animate-live-pulse" />
+          </span>
+          <div className="flex items-center gap-[14px] font-mono tracking-[0.96px] text-white/55 max-sm:gap-2 max-sm:tracking-[0.3px] max-sm:[&_p]:text-[10px]">
+            {/* Phones drop the label so the countdown and the CTA share the bar. */}
+            <p className="whitespace-nowrap text-[12px] leading-normal max-sm:hidden">PENDAFTARAN DITUTUP DALAM</p>
+            <Countdown deadline={REGISTRATION_DEADLINE} />
+          </div>
         </div>
+
+        {/* The header CTA lives here so it stays on screen while scrolling; white so it reads on the blue bar. */}
+        <a
+          href={REGISTER_HREF}
+          className="flex shrink-0 items-center gap-[6px] rounded-full bg-white py-[6px] pr-[14px] pl-[8px] transition-opacity hover:opacity-90 max-lg:py-[5px] max-lg:pr-[10px] max-lg:pl-[6px] max-sm:px-[10px]"
+        >
+          <span className="flex max-sm:hidden">
+            <ArrowIcon variant="light" />
+          </span>
+          <span className="whitespace-nowrap font-montreal text-[13px] leading-none font-medium text-[#2a62ff] max-sm:text-[11px]">
+            <span className="max-sm:hidden">DAFTAR SEKARANG </span>
+            <span className="sm:hidden">DAFTAR </span>
+            <strong className="font-bold">GRATIS</strong>
+          </span>
+        </a>
       </div>
     </div>
   );
 }
-
-/** Logo + register nav, shared by both hero versions. */
 export function HeroHeader() {
   return (
     <header className="relative z-10 flex w-full flex-col items-start">
@@ -384,26 +398,6 @@ export function HeroHeader() {
             <p className="font-normal text-white/55">LIVE EVENT</p>
           </div>
         </div>
-        {/* Figma 461:260281 */}
-        <a
-          href={REGISTER_HREF}
-          className="relative flex items-center justify-center gap-[10px] rounded-[62px] border border-white px-[20px] py-[6px] transition-opacity [filter:drop-shadow(0px_31px_9.5px_rgba(42,98,255,0.13))_drop-shadow(0px_14px_10px_rgba(42,98,255,0.12))] hover:opacity-90 max-lg:px-4 max-lg:py-[5px] max-sm:gap-[6px] max-sm:px-3"
-        >
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-[62px] bg-[linear-gradient(99.06deg,#1447d6_1.4587%,#204fd3_36.588%,#4c79f2_81.52%,#779cff_96.534%)]"
-          />
-          <span className="relative flex">
-            <ArrowIcon variant="light" />
-          </span>
-          <span className="relative whitespace-nowrap font-montreal text-[18px] leading-[1.4] font-medium text-white max-lg:text-[15px] max-sm:text-[12.5px]">
-            DAFTAR SEKARANG <strong className="font-bold">GRATIS</strong>
-          </span>
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0px_-2.135px_2px_0px_rgba(255,255,255,0.25),inset_0px_3.202px_6.405px_0px_rgba(255,255,255,0.25)]"
-          />
-        </a>
       </nav>
     </header>
   );
