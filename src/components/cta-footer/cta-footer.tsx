@@ -51,12 +51,12 @@ function Cta() {
         <img alt="TWS" className="block h-[40px] w-[105px]" src={`${IMG}/tws-logo-lg.svg`} />
 
         <div className="flex w-full flex-col items-start gap-[24px]">
-          <span className="relative flex items-center justify-center gap-[10px] rounded-[24px] px-[15px] py-[8px]">
+          <span className="relative flex items-center justify-center gap-[10px] rounded-[24px] px-[15px] py-[8px] max-sm:gap-2 max-sm:px-3">
             <span className="absolute inset-0 rounded-[24px] bg-white/5 backdrop-blur-[20px] max-lg:bg-white/8 max-lg:backdrop-blur-none" />
-            <span className="relative size-[12px] rounded-full bg-red-600">
+            <span className="relative size-[12px] shrink-0 rounded-full bg-red-600 max-sm:size-[10px]">
               <span className="absolute inset-0 rounded-full bg-red-600 animate-live-pulse" />
             </span>
-            <span className="relative whitespace-nowrap font-mono text-[12px] leading-[1.5] text-white max-sm:text-[10.5px]">
+            <span className="relative whitespace-nowrap font-mono text-[12px] leading-[1.5] text-white max-sm:text-[10px]">
               LIVE VIRTUAL EVENT: NOV 25TH - NOV 28TH
             </span>
             <span className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0_0_10px_#e11d48]" />
@@ -74,14 +74,14 @@ function Cta() {
             <div className="flex w-full flex-col items-start gap-[40px]">
               <a
                 href={REGISTER_HREF}
-                className="relative flex items-center justify-center gap-[10px] rounded-[67px] border border-white px-[32px] py-[12px] transition-opacity [filter:drop-shadow(0px_31px_9.5px_rgba(42,98,255,0.13))_drop-shadow(0px_14px_10px_rgba(42,98,255,0.12))] hover:opacity-90"
+                className="relative flex items-center justify-center gap-[10px] rounded-[67px] border border-white px-[32px] py-[12px] transition-opacity [filter:drop-shadow(0px_31px_9.5px_rgba(42,98,255,0.13))_drop-shadow(0px_14px_10px_rgba(42,98,255,0.12))] hover:opacity-90 max-sm:w-full max-sm:gap-2 max-sm:px-4"
               >
                 <span
                   aria-hidden
                   className="pointer-events-none absolute inset-0 rounded-[67px] bg-[linear-gradient(97.74deg,#1447d6_1.4587%,#204fd3_36.588%,#4c79f2_81.52%,#779cff_96.534%)]"
                 />
                 <img alt="" className="relative size-[16px]" src="/hero/icon-arrow-light.svg" />
-                <span className="relative whitespace-nowrap font-montreal text-[18px] font-medium leading-[1.4] text-white">
+                <span className="relative whitespace-nowrap font-montreal text-[18px] font-medium leading-[1.4] text-white max-sm:text-[15px]">
                   DAFTAR SEKARANG <strong className="font-bold">GRATIS</strong>
                 </span>
                 <span
