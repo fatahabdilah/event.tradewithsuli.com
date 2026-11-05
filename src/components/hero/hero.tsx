@@ -428,19 +428,19 @@ export function Hero() {
             Suli bedah cara siap-siap sebelum bullrun berikutnya, live selama 4 malam. Tanpa pengalaman, tanpa modal
             besar, tanpa bayar.
           </p>
-          <div className="flex animate-hero-up items-center gap-[20px] px-[8px] pt-[8px] [animation-delay:1400ms] lg:mb-[-6px] max-lg:pb-[8px] max-lg:w-full max-lg:flex-col max-lg:gap-4 max-lg:px-0">
-            <p className="flex w-[221px] shrink-0 items-center justify-center gap-[20px] whitespace-nowrap max-lg:w-auto">
+          <div className="flex animate-hero-up items-center gap-[20px] px-[8px] pt-[8px] [animation-delay:1400ms] lg:mb-[-6px] max-lg:w-full max-lg:flex-col max-lg:-mt-2 max-lg:gap-3 max-lg:px-0">
+            <p className="flex w-[221px] shrink-0 items-center justify-center gap-[20px] whitespace-nowrap max-lg:w-auto max-lg:gap-3">
               <span className="sr-only">Harga normal Rp 2.799.000, sekarang</span>
-              <span className="font-montreal text-[42.029px] leading-normal font-bold text-white max-sm:text-[34px]">Rp 0</span>
-              <span aria-hidden className="flex h-[28.227px] items-center rounded-[8.065px] bg-[#ff2a2a] px-[9.46px]">
-                <s className="font-montreal text-[16.444px] leading-none font-bold text-white decoration-white decoration-[1.17px]">
+              <span className="font-montreal text-[42.029px] leading-normal font-bold text-white max-lg:text-[30px]">Rp 0</span>
+              <span aria-hidden className="flex h-[28.227px] items-center rounded-[8.065px] bg-[#ff2a2a] px-[9.46px] max-lg:h-[22px] max-lg:rounded-[6px] max-lg:px-[7px]">
+                <s className="font-montreal text-[16.444px] leading-none font-bold text-white decoration-white decoration-[1.17px] max-lg:text-[13px] max-lg:decoration-1">
                   Rp 2.799.000
                 </s>
               </span>
             </p>
             <a
               href={REGISTER_HREF}
-              className="relative flex w-[311px] shrink-0 items-center justify-center gap-[10px] rounded-[62px] border border-white px-[24px] py-[12px] transition-opacity [filter:drop-shadow(0px_31px_9.5px_rgba(42,98,255,0.13))_drop-shadow(0px_14px_10px_rgba(42,98,255,0.12))] hover:opacity-90 max-sm:w-full"
+              className="relative flex w-[311px] shrink-0 items-center justify-center gap-[10px] rounded-[62px] border border-white px-[24px] py-[12px] transition-opacity [filter:drop-shadow(0px_31px_9.5px_rgba(42,98,255,0.13))_drop-shadow(0px_14px_10px_rgba(42,98,255,0.12))] hover:opacity-90 max-lg:w-auto max-lg:gap-2 max-lg:px-6 max-lg:py-[10px]"
             >
               <span
                 aria-hidden
@@ -449,7 +449,7 @@ export function Hero() {
               <span className="relative flex">
                 <ArrowIcon variant="light" />
               </span>
-              <span className="relative whitespace-nowrap font-montreal text-[18px] leading-[1.4] font-medium text-white">
+              <span className="relative whitespace-nowrap font-montreal text-[18px] leading-[1.4] font-medium text-white max-lg:text-[15px]">
                 DAFTAR SEKARANG <strong className="font-bold">GRATIS</strong>
               </span>
               <span
