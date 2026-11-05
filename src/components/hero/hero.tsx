@@ -316,6 +316,10 @@ function HeroArt() {
           </div>
         </div>
       </div>
+
+      {/* Covers anything that slips below the 888px frame (e.g. the photo mid-rise) on very tall/zoomed-out
+          screens, where the hero is taller than the art and there is open space under it. */}
+      <div className="absolute top-full left-0 hidden h-[200vh] w-full bg-black lg:block" />
     </div>
   );
 }
