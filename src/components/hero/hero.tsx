@@ -38,6 +38,8 @@ const PERSON_CENTER = { x: 720, y: 380 };
 export type CoinProps = {
   /** Point (frame coordinates) the coin flies out from during the entrance; defaults to behind Suli's torso. */
   from?: { x: number; y: number };
+  /** Extra classes on the coin's outer box (e.g. hiding it on some breakpoints). */
+  className?: string;
   /** Entrance delay in ms. */
   delay: number;
   /** Duration of the idle float loop in seconds. */
@@ -61,7 +63,7 @@ function corners({ w, h, m: [a, b, c, d, e, f] }: Layer, pad = 0) {
 
 // A floating crypto coin: motion trail, coin body, color tint and coin face. The coin lives in a box sized to its
 // own bounds (not the whole 1440×888 frame), so its blur/float/entrance layers stay small on phones.
-export function Coin({ from = PERSON_CENTER, delay, float, blur, trail: rawTrail, coin: rawCoin, tint: rawTint, face: rawFace }: CoinProps) {
+export function Coin({ from = PERSON_CENTER, className, delay, float, blur, trail: rawTrail, coin: rawCoin, tint: rawTint, face: rawFace }: CoinProps) {
   const spill = (blur ?? 0) * 3 + 4;
   const pts = [...corners(rawTrail, rawTrail.pad), ...corners(rawCoin), ...corners(rawFace)];
   const box = {
@@ -84,7 +86,7 @@ export function Coin({ from = PERSON_CENTER, delay, float, blur, trail: rawTrail
   const origin = `${cx - box.x}px ${cy - box.y}px`;
   return (
     <div
-      className="absolute animate-hero-pop"
+      className={`absolute animate-hero-pop ${className ?? ""}`}
       style={
         {
           left: box.x,

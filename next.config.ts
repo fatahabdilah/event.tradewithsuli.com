@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   // Lets other devices on the local network open the dev server.
-  allowedDevOrigins: ["192.168.110.30"],
+  allowedDevOrigins: ["192.168.0.217"],
   images: {
     qualities: [75, 90],
     // AVIF first (smallest), WebP for browsers without AVIF support.

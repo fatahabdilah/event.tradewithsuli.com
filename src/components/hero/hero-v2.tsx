@@ -14,7 +14,7 @@ function HeroArtV2() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute top-[calc((100%-888px)/2)] left-[calc(50%-720px)] h-[888px] w-[1440px] origin-[720px_888px] max-lg:top-auto max-lg:bottom-[-28px] sm:max-lg:bottom-[-34.7px] md:max-lg:bottom-[-42px] max-lg:scale-[0.5] sm:max-lg:scale-[0.62] md:max-lg:scale-[0.75]"
+      className="pointer-events-none absolute top-[calc((100%-888px)/2)] left-[calc(50%-720px)] h-[888px] w-[1440px] origin-[720px_888px] max-lg:top-auto max-lg:bottom-[-22.4px] sm:max-lg:bottom-[-34.7px] md:max-lg:bottom-[-42px] max-lg:scale-[0.4] sm:max-lg:scale-[0.62] md:max-lg:scale-[0.75]"
     >
       {/* Scene sides fade out so wide screens never show its hard edge. */}
       <div className="absolute top-[42.6px] left-[-135.26px] h-[1052.645px] w-[1712.321px] [mask-image:linear-gradient(90deg,transparent,#000_160px,#000_calc(100%-160px),transparent)] max-lg:[mask-image:none]">
@@ -35,6 +35,7 @@ function HeroArtV2() {
 
       <Coin
         from={PERSON_CENTER}
+        className="max-lg:translate-x-[150px]"
         delay={1000}
         float={6.5}
         blur={3.4326}
@@ -73,6 +74,7 @@ function HeroArtV2() {
 
       <Coin
         from={PERSON_CENTER}
+        className="max-lg:hidden"
         delay={1300}
         float={7}
         blur={2.5444}
@@ -89,6 +91,7 @@ function HeroArtV2() {
 
       <Coin
         from={PERSON_CENTER}
+        className="max-lg:hidden"
         delay={1450}
         float={6}
         blur={4.4901}
@@ -116,6 +119,7 @@ function HeroArtV2() {
 
       <Coin
         from={PERSON_CENTER}
+        className="max-lg:-translate-x-[110px]"
         delay={1150}
         float={5.5}
         trail={{
@@ -136,7 +140,7 @@ function HeroArtV2() {
         }}
       />
 
-      <div className="absolute top-[315px] left-[141px] h-[655px] w-[1174px] animate-hero-rise [animation-delay:350ms]">
+      <div className="absolute top-[303px] left-[141px] h-[655px] w-[1174px] origin-[50%_80.8%] max-lg:scale-[1.35] max-sm:scale-[1.69] animate-hero-rise [animation-delay:350ms]">
         <Image src="/hero/suli.png" alt="" fill priority quality={90} sizes="(max-width: 1023px) 740px, 1174px" className="max-w-none object-cover" />
       </div>
 
@@ -164,7 +168,7 @@ export function HeroV2() {
       <HeroHeader />
 
       {/* Figma 461:260406: live chip, headline, sub line, then price + CTA. */}
-      <div className="absolute top-[calc((100%-888px)/2+129px)] left-1/2 z-10 flex w-[630px] -translate-x-1/2 flex-col items-center gap-[20px] text-center max-lg:relative max-lg:top-auto max-lg:left-auto max-lg:w-full max-lg:translate-x-0 max-lg:gap-4 max-lg:px-5 max-lg:pt-6">
+      <div className="absolute top-[calc((100%-888px)/2+129px)] left-1/2 z-10 flex w-[630px] -translate-x-1/2 flex-col items-center gap-[20px] text-center max-lg:relative max-lg:top-auto max-lg:left-auto max-lg:w-full max-lg:flex-1 max-lg:translate-x-0 max-lg:justify-center max-lg:gap-4 max-lg:px-5 max-lg:py-6">
         <div className="relative flex animate-hero-up items-center gap-[10px] rounded-[24px] bg-black px-[15px] py-[8px] shadow-[inset_0px_0px_10px_0px_#e11d48] [animation-delay:900ms]">
           <span className="relative size-[12px] shrink-0 rounded-full bg-red-600 max-sm:size-[10px]">
             <span className="absolute inset-0 rounded-full bg-red-600 animate-live-pulse" />
@@ -172,19 +176,19 @@ export function HeroV2() {
           <p className="whitespace-nowrap font-mono text-[12px] leading-[1.5] max-sm:text-[11px]">LIVE VIRTUAL EVENT: NOV 25TH - NOV 28TH</p>
         </div>
 
-        <h1 className="w-[668px] shrink-0 animate-hero-up bg-gradient-to-t from-[#2a62ff] to-white to-80% bg-clip-text font-montreal text-[62.009px] leading-[1.09] font-bold tracking-[-2.4804px] text-transparent uppercase [animation-delay:1050ms] [text-box-edge:cap_alphabetic] [text-box-trim:trim-both] max-lg:w-full max-lg:max-w-[668px] max-lg:text-[34px] max-lg:tracking-[-1.2px] sm:max-lg:text-[52px] sm:max-lg:tracking-[-2px]">
+        <h1 className="w-[668px] shrink-0 animate-hero-up bg-gradient-to-t from-[#2a62ff] to-white to-80% bg-clip-text font-montreal text-[62.009px] leading-[1.09] font-bold tracking-[-2.4804px] text-transparent uppercase [animation-delay:1050ms] [text-box-edge:cap_alphabetic] [text-box-trim:trim-both] max-lg:w-full max-lg:max-w-[668px] max-lg:text-[clamp(28px,8.6vw,34px)] max-lg:tracking-[-1.2px] max-sm:max-w-[340px] sm:max-lg:text-[52px] sm:max-lg:tracking-[-2px]">
           2027 Bisa Jadi Bullrun Terakhir.
         </h1>
 
-        <p className="animate-hero-up font-montreal text-[20px] leading-[1.2] tracking-[1px] uppercase opacity-60 [animation-delay:1200ms] max-sm:text-[15px]">
+        <p className="-mt-[5px] animate-hero-up font-montreal text-[20px] leading-none tracking-[1px] uppercase opacity-60 [animation-delay:1200ms] max-sm:text-[15px]">
           Jangan Jadi Penonton Lagi.
         </p>
 
         {/* Same price block as hero v1 (460:260106), scaled to 72.55%. */}
-        <div className="flex animate-hero-up items-center gap-[14.51px] rounded-[50px] px-[5.8px] [animation-delay:1350ms] max-sm:flex-col max-sm:gap-3">
-          <p className="flex w-[160.333px] shrink-0 items-center justify-center gap-[14.51px] whitespace-nowrap">
+        <div className="-mt-1.5 flex animate-hero-up items-center gap-[14.51px] max-lg:-mt-2 rounded-[50px] px-[5.8px] [animation-delay:1350ms] max-sm:flex-col max-sm:gap-3">
+          <p className="flex shrink-0 items-center justify-center gap-[8px] whitespace-nowrap">
             <span className="sr-only">Harga normal Rp 2.799.000, sekarang</span>
-            <span className="font-montreal text-[30.491px] leading-normal font-bold text-white">Rp 0</span>
+            <span className="font-montreal text-[30.491px] leading-none font-bold text-white">Rp 0</span>
             <span aria-hidden className="flex h-[20.478px] items-center rounded-[5.851px] bg-[#ff2a2a] px-[6.86px]">
               <s className="font-montreal text-[11.93px] leading-none font-bold text-white decoration-white decoration-[0.85px]">Rp 2.799.000</s>
             </span>
@@ -211,10 +215,10 @@ export function HeroV2() {
         </div>
       </div>
 
-      {/* Mobile stage: grows to fill the screen, with the scaled frame's ticker line on its bottom edge so the photo
-          runs straight into the ticker; its dark top runs under the copy above.
+      {/* Mobile stage: fixed height with the scaled frame's ticker line on its bottom edge, so the photo runs
+          straight into the ticker; the copy above takes the remaining height and centres itself in it.
           Desktop: `contents`, so the art stays positioned against the section. */}
-      <div className="relative -mt-10 min-h-[316px] flex-1 sm:min-h-[392px] md:min-h-[474px] lg:contents">
+      <div className="relative h-[290px] shrink-0 sm:h-[392px] md:h-[474px] lg:contents">
         <HeroArtV2 />
       </div>
 
