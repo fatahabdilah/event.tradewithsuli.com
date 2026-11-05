@@ -18,7 +18,7 @@ function Card({ title, description, delay, children }: { title: string; descript
       {children}
       <div className="flex w-full flex-col items-start gap-[8px] leading-[1.4]">
         <h3 className="w-full font-montreal text-[24px] font-medium text-white max-sm:text-[20px]">{title}</h3>
-        <p className="w-full font-montreal text-[18px] text-[#bbb] max-sm:text-[16px]">{description}</p>
+        <p className="min-h-[2.8em] w-full font-montreal text-[17px] tracking-[-0.2px] text-[#bbb] max-lg:min-h-0 max-sm:text-[16px] max-sm:tracking-normal">{description}</p>
       </div>
     </div>
   );
