@@ -4,15 +4,12 @@ import Image from "next/image";
 
 const IMG = "/detail-event";
 
-// Figma copy placeholder — swap in the real descriptions.
-const PLACEHOLDER = "A 100% free, 5-day live event where Mark Tilbury and Iman Gadzhi.";
-
 const fadeBottom = "absolute bottom-0 left-0 h-[100px] w-[379px] bg-gradient-to-b from-[#111]/0 to-[#111]";
 const glassInset =
   "pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0_0.175px_0.175px_rgba(255,255,255,0.1),inset_0_-0.175px_0.175px_rgba(0,0,0,0.1)]";
 const chipShadow = "shadow-[0_1.401px_5.604px_rgba(0,0,0,0.2),0_2.802px_8.407px_rgba(0,0,0,0.15)]";
 
-function Card({ title, delay, children }: { title: string; delay: number; children: ReactNode }) {
+function Card({ title, description, delay, children }: { title: string; description: string; delay: number; children: ReactNode }) {
   return (
     <div
       data-reveal
@@ -21,7 +18,7 @@ function Card({ title, delay, children }: { title: string; delay: number; childr
       {children}
       <div className="flex w-full flex-col items-start gap-[8px] leading-[1.4]">
         <h3 className="w-full font-montreal text-[24px] font-medium text-white max-sm:text-[20px]">{title}</h3>
-        <p className="w-full font-montreal text-[18px] text-[#bbb] max-sm:text-[16px]">{PLACEHOLDER}</p>
+        <p className="w-full font-montreal text-[18px] text-[#bbb] max-sm:text-[16px]">{description}</p>
       </div>
     </div>
   );
@@ -232,13 +229,13 @@ export function DetailEvent() {
     <section id="detail-event" className="flex w-full flex-col items-center justify-center gap-[48px] bg-black p-[80px] text-white max-lg:gap-8 max-lg:px-5 max-lg:py-16">
       <h2 data-reveal className="font-montreal text-[30px] font-medium leading-[36px] whitespace-nowrap max-sm:text-[24px]">Detail event</h2>
       <div className="flex w-full max-w-[1280px] items-end justify-center gap-[21px] max-lg:flex-col max-lg:items-center max-lg:gap-4">
-        <Card title="Event apa ini?" delay={0}>
+        <Card title="Event apa ini?" description="Bootcamp live 4 malam bareng Suli buat siap hadapi bullrun 2027. 100% gratis, khusus pemula." delay={0}>
           <Ticket />
         </Card>
-        <Card title="Kapan diadakan?" delay={120}>
+        <Card title="Kapan diadakan?" description="25–28 November 2026, Rabu sampai Sabtu, setiap malam jam 19.00 WIB." delay={120}>
           <Calendar />
         </Card>
-        <Card title="Dimana?" delay={240}>
+        <Card title="Dimana?" description="Live di YouTube. Link akses dikirim setelah daftar." delay={240}>
           <ZoomWindow />
         </Card>
       </div>

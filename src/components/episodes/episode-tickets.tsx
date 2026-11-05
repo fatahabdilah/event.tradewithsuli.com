@@ -184,7 +184,7 @@ export function EpisodesHeading() {
   return (
     <h2 data-reveal className="flex w-[393px] flex-col items-center text-center uppercase leading-[36px] max-lg:w-full">
       <span className="w-full whitespace-nowrap font-montreal text-[16px] text-white">4 malam yang nentuin</span>
-      <span className="w-full whitespace-nowrap bg-gradient-to-r from-[#2a62ff] from-[7.212%] to-white bg-clip-text font-montreal text-[30px] font-bold text-transparent max-sm:text-[24px] max-sm:leading-[30px]">
+      <span className="w-max whitespace-nowrap bg-gradient-to-r from-[#2a62ff] from-[7.212%] to-white bg-clip-text font-montreal text-[30px] font-bold text-transparent max-sm:text-[24px] max-sm:leading-[30px]">
         posisi lu di bullrun 2027
       </span>
     </h2>

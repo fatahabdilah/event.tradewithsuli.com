@@ -158,6 +158,27 @@ export function ArrowIcon({ variant }: { variant: "light" }) {
   );
 }
 
+/** The normal price appears, gets struck through, then shrinks aside as "Rp0" drops in (Figma 483:262690).
+    Base styles are the final frame; the hero-price-* keyframes in globals.css play the steps before it. */
+export function PriceDrop({ className = "w-[236px] max-lg:w-[200px]" }: { className?: string }) {
+  return (
+    <p className={`relative h-[48px] shrink-0 whitespace-nowrap font-sans text-white ${className}`}>
+      <span className="sr-only">Harga normal Rp 2.799.000, sekarang Rp 0</span>
+      {/* Normal price + strike, scaled from the big text's top-left (0, 7px) onto the small copy at (88px, 22px). */}
+      <span aria-hidden className="absolute inset-0 origin-[0_7px] animate-hero-price-out">
+        <span className="absolute top-[7px] left-0 text-[26px] leading-normal font-medium tracking-[-0.26px]">Rp2.799.000</span>
+        <span className="absolute top-[25px] left-[-2px] h-[2.5px] w-[160px] origin-left animate-hero-price-strike bg-[#ef4444]" />
+      </span>
+      <s aria-hidden className="absolute top-[22px] left-[88px] animate-hero-price-small text-[18px] leading-normal text-[#ef4444]">
+        Rp2.799.000
+      </s>
+      <span aria-hidden className="absolute top-[-2px] left-0 animate-hero-price-zero text-[40px] leading-normal font-semibold tracking-[-1.2px]">
+        Rp0
+      </span>
+    </p>
+  );
+}
+
 // The art follows Figma's wide frame (3621px) so zoomed-out / ultra-wide screens stay covered.
 // Its 1440px content column starts at x=998 and is kept centered on the viewport. Layout is the compact
 // 888px-tall hero (Figma 445:259885); the wide scene is scaled the same way the 1440 scene was (×0.8912).
@@ -428,35 +449,27 @@ export function Hero() {
             Suli bedah cara siap-siap sebelum bullrun berikutnya, live selama 4 malam. Tanpa pengalaman, tanpa modal
             besar, tanpa bayar.
           </p>
-          <div className="flex animate-hero-up items-center gap-[20px] px-[8px] pt-[8px] [animation-delay:1400ms] lg:mb-[-6px] max-lg:w-full max-lg:flex-col max-lg:-mt-2 max-lg:gap-3 max-lg:px-0">
-            <p className="flex w-[221px] shrink-0 items-center justify-center gap-[20px] whitespace-nowrap max-lg:w-auto max-lg:gap-3">
-              <span className="sr-only">Harga normal Rp 2.799.000, sekarang</span>
-              <span className="font-montreal text-[42.029px] leading-normal font-bold text-white max-lg:text-[30px]">Rp 0</span>
-              <span aria-hidden className="flex h-[28.227px] items-center rounded-[8.065px] bg-[#ff2a2a] px-[9.46px] max-lg:h-[22px] max-lg:rounded-[6px] max-lg:px-[7px]">
-                <s className="font-montreal text-[16.444px] leading-none font-bold text-white decoration-white decoration-[1.17px] max-lg:text-[13px] max-lg:decoration-1">
-                  Rp 2.799.000
-                </s>
-              </span>
-            </p>
+          <div className="flex animate-hero-up items-center gap-[16px] pt-[8px] [animation-delay:1400ms] lg:mb-[-6px] max-lg:w-full max-lg:flex-col max-lg:-mt-2 max-lg:gap-3">
             <a
               href={REGISTER_HREF}
-              className="relative flex w-[311px] shrink-0 items-center justify-center gap-[10px] rounded-[62px] border border-white px-[24px] py-[12px] transition-opacity [filter:drop-shadow(0px_31px_9.5px_rgba(42,98,255,0.13))_drop-shadow(0px_14px_10px_rgba(42,98,255,0.12))] hover:opacity-90 max-lg:w-auto max-lg:gap-2 max-lg:px-6 max-lg:py-[10px]"
+              className="relative flex shrink-0 items-center justify-center gap-[8px] rounded-[57.363px] border-[0.925px] border-white px-[20px] py-[10px] transition-opacity [filter:drop-shadow(0px_28.682px_8.79px_rgba(42,98,255,0.13))_drop-shadow(0px_12.953px_9.252px_rgba(42,98,255,0.12))] hover:opacity-90"
             >
               <span
                 aria-hidden
-                className="pointer-events-none absolute inset-0 rounded-[62px] bg-[linear-gradient(100.29deg,#1447d6_1.4587%,#204fd3_36.588%,#4c79f2_81.52%,#779cff_96.534%)]"
+                className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(100.62deg,#1447d6_1.4587%,#204fd3_36.588%,#4c79f2_81.52%,#779cff_96.534%)]"
               />
-              <span className="relative flex">
+              <span className="relative flex size-[14.803px] [&>span]:size-full">
                 <ArrowIcon variant="light" />
               </span>
-              <span className="relative whitespace-nowrap font-montreal text-[18px] leading-[1.4] font-medium text-white max-lg:text-[15px]">
+              <span className="relative whitespace-nowrap font-montreal text-[16.654px] leading-[1.4] font-medium text-white max-lg:text-[15px]">
                 DAFTAR SEKARANG <strong className="font-bold">GRATIS</strong>
               </span>
               <span
                 aria-hidden
-                className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0px_-2.135px_2px_0px_rgba(255,255,255,0.25),inset_0px_3.202px_6.405px_0px_rgba(255,255,255,0.25)]"
+                className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0px_-1.975px_1.85px_0px_rgba(255,255,255,0.25),inset_0px_2.963px_5.926px_0px_rgba(255,255,255,0.25)]"
               />
             </a>
+            <PriceDrop />
           </div>
         </div>
       </div>

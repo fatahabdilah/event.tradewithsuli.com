@@ -80,6 +80,9 @@ function TicketCard({ ticket, delay }: { ticket: Ticket; delay: number }) {
         <img alt="" className="absolute top-0 left-[-0.33px] h-[374px] w-[713px] max-w-none" src={`${IMG}/v-main.svg`} />
         <img alt="" className="absolute top-0 left-[-0.33px] h-[374px] w-[713px] max-w-none" src={`${IMG}/v-glow-${ticket.day}.svg`} />
         <img alt="" className="absolute top-[0.11px] left-[712.66px] h-[373.886px] w-[192.332px] max-w-none" src={`${IMG}/v-stub.svg`} />
+        {/* 10% white border tracing each half's outline (notches included); the SVGs are padded 1px so it isn't clipped. */}
+        <img alt="" className="absolute top-[-1px] left-[-1.33px] h-[376px] w-[715px] max-w-none" src={`${IMG}/v-main-outline.svg`} />
+        <img alt="" className="absolute top-[-0.89px] left-[711.66px] h-[375.886px] w-[194.332px] max-w-none" src={`${IMG}/v-stub-outline.svg`} />
       </div>
 
       {/* Day number: a solid soft-light layer plus two fading copies stacked on it, as in Figma. */}

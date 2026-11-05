@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- decorative layers rely on raw transforms/blend modes */
 import Image from "next/image";
 import { REGISTER_HREF } from "@/lib/event";
-import { ArrowIcon, Coin, HeroHeader } from "./hero";
+import { ArrowIcon, Coin, HeroHeader, PriceDrop } from "./hero";
 import { Ticker } from "./ticker";
 
 // Behind Suli's chest in this layout; the coins fly out from here during the entrance.
@@ -184,15 +184,8 @@ export function HeroV2() {
           Jangan Jadi Penonton Lagi.
         </p>
 
-        {/* Same price block as hero v1 (460:260106), scaled to 72.55%. */}
+        {/* CTA + price (button first, as in hero v1), hero v1 sizes scaled to 72.55%. */}
         <div className="-mt-1.5 flex animate-hero-up items-center gap-[14.51px] max-lg:-mt-2 rounded-[50px] px-[5.8px] [animation-delay:1350ms] max-sm:flex-col max-sm:gap-3">
-          <p className="flex shrink-0 items-center justify-center gap-[8px] whitespace-nowrap">
-            <span className="sr-only">Harga normal Rp 2.799.000, sekarang</span>
-            <span className="font-montreal text-[30.491px] leading-none font-bold text-white">Rp 0</span>
-            <span aria-hidden className="flex h-[20.478px] items-center rounded-[5.851px] bg-[#ff2a2a] px-[6.86px]">
-              <s className="font-montreal text-[11.93px] leading-none font-bold text-white decoration-white decoration-[0.85px]">Rp 2.799.000</s>
-            </span>
-          </p>
           <a
             href={REGISTER_HREF}
             className="relative flex w-[225.627px] shrink-0 items-center justify-center gap-[7.255px] rounded-[44.98px] border-[0.725px] border-white px-[17.412px] py-[8.706px] transition-opacity [filter:drop-shadow(0px_22.49px_6.892px_rgba(42,98,255,0.13))_drop-shadow(0px_10.157px_7.255px_rgba(42,98,255,0.12))] hover:opacity-90"
@@ -212,6 +205,8 @@ export function HeroV2() {
               className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0px_-1.549px_1.451px_0px_rgba(255,255,255,0.25),inset_0px_2.323px_4.647px_0px_rgba(255,255,255,0.25)]"
             />
           </a>
+          {/* Same animated price as hero v1, at this hero's 72.55% scale; sized to its final width so the row stays centred. */}
+          <PriceDrop className="w-[200px] [zoom:0.7255]" />
         </div>
       </div>
 

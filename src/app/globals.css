@@ -166,6 +166,47 @@
   }
 }
 
+/* Hero price drop (hero.tsx PriceDrop), once the price row has risen in: the normal price is struck through,
+   then shrinks aside into the small red copy while "Rp0" drops in. Each element's base style is the final frame,
+   so the reduced-motion rule below (which removes animate-hero-*) simply shows the end state. */
+@keyframes hero-price-strike {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes hero-price-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes hero-price-small {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes hero-price-zero {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(6px);
+  }
+}
+.animate-hero-price-strike {
+  animation: hero-price-strike 0.5s cubic-bezier(0.65, 0, 0.35, 1) 2.5s both;
+}
+.animate-hero-price-out {
+  opacity: 0;
+  transform: translate(88px, 15px) scale(0.692);
+  animation: hero-price-out 0.7s cubic-bezier(0.16, 1, 0.3, 1) 3.3s both;
+}
+.animate-hero-price-small {
+  animation: hero-price-small 0.5s ease-out 3.55s both;
+}
+.animate-hero-price-zero {
+  animation: hero-price-zero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 3.55s both;
+}
+
 /* Scroll reveal (see components/scroll-reveal.tsx). Only hides content once JS has flagged the page,
    so nothing stays invisible if scripts fail. Uses transform + opacity only. */
 .reveal-ready [data-reveal] {
