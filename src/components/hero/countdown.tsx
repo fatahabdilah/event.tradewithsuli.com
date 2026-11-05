@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 
 type Remaining = { days: number; hours: number; minutes: number; seconds: number };
 
-function getRemaining(deadline: number): Remaining {
-  const total = Math.max(0, Math.floor((deadline - Date.now()) / 1000));
+function getRemaining(deadline: number, at: number): Remaining {
+  const total = Math.max(0, Math.floor((deadline - at) / 1000));
   return {
     days: Math.floor(total / 86400),
     hours: Math.floor((total % 86400) / 3600),
@@ -14,19 +14,33 @@ function getRemaining(deadline: number): Remaining {
   };
 }
 
-/** Ticks every second; null until mounted so server and client markup match. */
+// One shared 1-second clock for every countdown on the page (instead of an interval per countdown).
+let now = 0;
+const listeners = new Set<() => void>();
+let timer: ReturnType<typeof setInterval> | undefined;
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  if (!timer) {
+    now = Date.now();
+    timer = setInterval(() => {
+      now = Date.now();
+      listeners.forEach((l) => l());
+    }, 1000);
+  }
+  return () => {
+    listeners.delete(listener);
+    if (!listeners.size && timer) {
+      clearInterval(timer);
+      timer = undefined;
+    }
+  };
+}
+
+/** Remaining time, ticking every second; null on the server and first render so markup matches. */
 export function useRemaining(deadline: string) {
-  const [remaining, setRemaining] = useState<Remaining | null>(null);
-
-  useEffect(() => {
-    const target = new Date(deadline).getTime();
-    const tick = () => setRemaining(getRemaining(target));
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, [deadline]);
-
-  return remaining;
+  const time = useSyncExternalStore(subscribe, () => now, () => 0);
+  return useMemo(() => (time ? getRemaining(new Date(deadline).getTime(), time) : null), [deadline, time]);
 }
 
 export const pad2 = (n: number | undefined) => (n === undefined ? "--" : String(n).padStart(2, "0"));

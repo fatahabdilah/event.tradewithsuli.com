@@ -39,7 +39,7 @@ function Ticket() {
   return (
     <div
       role="img"
-      aria-label="Tiket Bull Run 2027, 4 - 7 November 2026"
+      aria-label="Tiket Bull Run 2027, 25 - 28 November 2026"
       className="relative h-[255px] w-[379px] shrink-0 overflow-clip rounded-[12px] bg-[#0b0b0b] max-sm:[zoom:0.79]"
     >
       <img alt="" className="max-w-none" style={place([...TILT, 24.9972, 75.3144], 247.2402, 127.8584)} src={`${IMG}/ticket-body.svg`} />
@@ -63,20 +63,24 @@ function Ticket() {
         className="whitespace-nowrap font-montreal text-[12px] font-medium leading-[1.2] text-white opacity-50"
         style={place([...TILT, 48.3524, 179.94])}
       >
-        4 - 7 November 2026
+        25 - 28 November 2026
       </p>
     </div>
   );
 }
 
 const WEEKDAYS = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
-// September 2026 starts on a Tuesday; rows sit at Figma's fixed offsets inside the 228px grid.
-const WEEKS: { top: number; days: (number | null)[] }[] = [
-  { top: 29.04, days: [null, 1, 2, 3, 4, 5, 6] },
-  { top: 70.04, days: [7, 8, 9, 10, 11, 12, 13] },
-  { top: 110.04, days: [14, 15, 16, 17, 18, 19, 20] },
-  { top: 151.04, days: [21, 22, 23, 24, 25, 26, 27] },
+// November 2026, weeks of 16–22 and 23–29 (event: Wed 25 – Sat 28), then 30 Nov and early December (muted).
+// Rows sit at Figma's fixed offsets inside the 228px grid.
+const WEEKS: { top: number; days: (number | [number, "muted"])[] }[] = [
+  { top: 29.04, days: [16, 17, 18, 19, 20, 21, 22] },
+  { top: 70.04, days: [23, 24, 25, 26, 27, 28, 29] },
+  { top: 110.04, days: [30, [1, "muted"], [2, "muted"], [3, "muted"], [4, "muted"], [5, "muted"], [6, "muted"]] },
+  { top: 151.04, days: [[7, "muted"], [8, "muted"], [9, "muted"], [10, "muted"], [11, "muted"], [12, "muted"], [13, "muted"]] },
 ];
+// Left edge of the 36px day marker in weekday column i (7 columns, 4px gaps, 323px row).
+const dayX = (i: number) => 3.02 + i * ((323 + 4) / 7);
+const EVENT = { top: 70.04, from: 2, to: 5 };
 
 function ArrowButton({ src }: { src: string }) {
   return (
@@ -94,7 +98,7 @@ function Calendar() {
           <div className="flex w-full items-center justify-between pr-[6.593px] pl-[5.993px]">
             <ArrowButton src={`${IMG}/chev-l.svg`} />
             <p className="whitespace-nowrap font-montreal text-[11.987px] font-medium leading-[1.2] tracking-[-0.1199px] text-white">
-              September
+              November 2026
             </p>
             <ArrowButton src={`${IMG}/chev-r.svg`} />
           </div>
@@ -111,12 +115,15 @@ function Calendar() {
               ))}
             </div>
 
-            {/* Event range 4–7: pill behind 4–6, filled circle on the 4th, outlined circle on the 7th. */}
-            <div className="absolute top-[29.04px] left-[191.02px] h-[36px] w-[132px] rounded-full bg-[rgba(37,99,235,0.2)]" />
-            <div className="absolute top-[29.04px] left-[191.02px] size-[36px]">
+            {/* Event range 25–28: pill across the days, filled circle on the 25th, outlined circle on the 28th. */}
+            <div
+              className="absolute h-[36px] rounded-full bg-[rgba(37,99,235,0.2)]"
+              style={{ top: EVENT.top, left: dayX(EVENT.from), width: dayX(EVENT.to) + 36 - dayX(EVENT.from) }}
+            />
+            <div className="absolute size-[36px]" style={{ top: EVENT.top, left: dayX(EVENT.from) }}>
               <img alt="" className="absolute inset-[-22.22%_-27.78%_-22.22%_-16.67%] block size-auto max-w-none" src={`${IMG}/day-start.svg`} />
             </div>
-            <div className="absolute top-[70.04px] left-[3.02px] size-[36px]">
+            <div className="absolute size-[36px]" style={{ top: EVENT.top, left: dayX(EVENT.to) }}>
               <img alt="" className="absolute inset-[-5.56%] block max-w-none" src={`${IMG}/day-end.svg`} />
             </div>
 
@@ -124,11 +131,9 @@ function Calendar() {
               <div key={week.top} className="absolute left-[0.02px] flex w-[323px] items-center gap-[4px]" style={{ top: week.top }}>
                 {week.days.map((day, i) => (
                   <span key={i} className="relative flex h-[36px] min-w-px flex-1 items-center justify-center">
-                    {day !== null && (
-                      <span className={`font-montreal leading-normal text-white ${day === 1 ? "text-[9.59px]" : "text-[11.73px]"}`}>
-                        {day}
-                      </span>
-                    )}
+                    <span className={`font-montreal text-[11.73px] leading-normal ${Array.isArray(day) ? "text-white/30" : "text-white"}`}>
+                      {Array.isArray(day) ? day[0] : day}
+                    </span>
                   </span>
                 ))}
               </div>

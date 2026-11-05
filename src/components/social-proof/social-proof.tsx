@@ -148,15 +148,14 @@ function CallCard({ call, desktopOnly, delay }: { call: Call; desktopOnly?: bool
   return (
     <article
       data-reveal
-      className={`relative flex w-full shrink-0 flex-col items-start gap-[17.872px] overflow-clip max-lg:h-auto! max-lg:pb-4 ${desktopOnly ? "max-lg:hidden" : ""} rounded-[8.936px] border-[0.745px] border-white/10 bg-gradient-to-b from-[#0a0a0a] to-[#141414] pb-[11.915px] shadow-[0_-5.957px_23.83px_black]`}
+      className={`relative flex w-full shrink-0 flex-col items-start gap-[17.872px] max-lg:h-auto! max-lg:pb-4 ${desktopOnly ? "max-lg:hidden" : ""} rounded-[8.936px] border-[0.745px] border-white/10 bg-gradient-to-b from-[#0a0a0a] to-[#141414] pb-[11.915px] shadow-[0_-5.957px_23.83px_black]`}
       style={{ height: call.height, "--reveal-delay": `${delay}ms` } as CSSProperties}
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 h-[233.085px] w-[466.17px] -translate-x-1/2"
-        style={{ top: call.lightTop }}
-      >
-        <Image alt="" width={265} height={207} sizes="265px" className="absolute top-[-127.8%] left-[-63.9%] block h-[355.6%] w-[227.8%] max-w-none" src={`${IMG}/${call.light}`} />
+      {/* Only the coloured light pool is clipped to the card; the neon gain text glow may spill past its edges. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+        <div className="absolute left-1/2 h-[233.085px] w-[466.17px] -translate-x-1/2" style={{ top: call.lightTop }}>
+          <Image alt="" width={265} height={207} sizes="265px" className="absolute top-[-127.8%] left-[-63.9%] block h-[355.6%] w-[227.8%] max-w-none" src={`${IMG}/${call.light}`} />
+        </div>
       </div>
 
       <header className="relative flex w-full items-center gap-[11.915px] px-[11.915px] pt-[17.872px] pb-[11.915px]">
@@ -190,7 +189,7 @@ export function SocialProof() {
         className="pointer-events-none absolute top-0 left-[calc(50%-427.59px)] flex h-[1483px] w-[2636.03px] -translate-x-1/2 items-center justify-center mix-blend-lighten max-lg:hidden"
       >
         <div className="relative h-[2636.03px] w-[1483px] flex-none rotate-90 -scale-y-100">
-          <Image src={`${IMG}/bg-texture.png`} alt="" fill sizes="2636px" className="object-cover" />
+          <Image src={`${IMG}/bg-texture.png`} alt="" fill sizes="(max-width: 1023px) 16px, 2636px" className="object-cover" />
         </div>
       </div>
       {/* Mobile stand-in for the blended texture: a plain gradient glow. */}
@@ -218,12 +217,12 @@ export function SocialProof() {
         </div>
 
         <div className="relative h-[1181px] w-[1440px] max-lg:flex max-lg:h-auto max-lg:w-full max-lg:max-w-[630px] max-lg:flex-col max-lg:gap-10">
-          <div className="absolute inset-x-0 top-0 h-[1044px] overflow-clip lg:[mask-image:linear-gradient(180deg,#000_0,#000_918.5px,transparent_1044px)] max-lg:static max-lg:flex max-lg:h-auto max-lg:flex-col max-lg:gap-5">
+          <div className="absolute inset-x-0 top-[-80px] h-[1124px] overflow-clip lg:[mask-image:linear-gradient(180deg,#000_0,#000_998.5px,transparent_1124px)] max-lg:static max-lg:flex max-lg:h-auto max-lg:flex-col max-lg:gap-5">
             {COLUMNS.map((column, i) => (
               <div
                 key={i}
                 className="absolute flex w-[630px] flex-col items-start gap-[20px] max-lg:static max-lg:w-full"
-                style={{ left: i === 0 ? 80 : 730, top: i === 0 ? 0 : 1 }}
+                style={{ left: i === 0 ? 80 : 730, top: i === 0 ? 80 : 81 }}
               >
                 {column.map((call, j) => (
                   // The repeated TRUMP card only fills the fading tail of the desktop grid.

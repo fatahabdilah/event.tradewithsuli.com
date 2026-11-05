@@ -404,7 +404,7 @@ export function Hero() {
               <span className="absolute inset-0 rounded-full bg-red-600 animate-live-pulse" />
             </span>
             <p className="whitespace-nowrap font-mono text-[17.217px] leading-[1.5] max-lg:text-[13px] max-sm:text-[11px]">
-              LIVE VIRTUAL EVENT: NOV 4TH - NOV 7TH
+              LIVE VIRTUAL EVENT: NOV 25TH - NOV 28TH
             </p>
           </div>
           <p className="w-[566px] animate-hero-up font-montreal text-[20px] leading-[1.4] opacity-90 [animation-delay:1250ms] max-lg:w-full max-lg:text-[16px] sm:max-lg:text-[18px]">

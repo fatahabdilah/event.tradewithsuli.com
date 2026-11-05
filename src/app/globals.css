@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
-/* Neue Montreal is a licensed font — drop the files into public/fonts to enable it. */
+/* Neue Montreal is a licensed font. Only installed copies are used for now; once the .woff2 files are in
+   public/fonts, add `url("/fonts/NeueMontreal-<Weight>.woff2") format("woff2")` back to each src below
+   (a url pointing at a missing file costs a failed request on every visit). */
 @font-face {
   font-family: "Neue Montreal";
   src:
     local("Neue Montreal Regular"),
-    local("NeueMontreal-Regular"),
-    url("/fonts/NeueMontreal-Regular.woff2") format("woff2");
+    local("NeueMontreal-Regular");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -16,8 +17,7 @@
   font-family: "Neue Montreal";
   src:
     local("Neue Montreal Medium"),
-    local("NeueMontreal-Medium"),
-    url("/fonts/NeueMontreal-Medium.woff2") format("woff2");
+    local("NeueMontreal-Medium");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -27,8 +27,7 @@
   font-family: "Neue Montreal";
   src:
     local("Neue Montreal Bold"),
-    local("NeueMontreal-Bold"),
-    url("/fonts/NeueMontreal-Bold.woff2") format("woff2");
+    local("NeueMontreal-Bold");
   font-weight: 700;
   font-style: normal;
   font-display: swap;

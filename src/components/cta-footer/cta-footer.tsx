@@ -14,7 +14,7 @@ function Glow({ dx, mobile = false }: { dx: number; mobile?: boolean }) {
       style={{ left: `calc(50% + ${dx}px)` }}
     >
       <div className="relative h-[1393.812px] w-[1009.201px] flex-none rotate-15">
-        <Image alt="" width={312} height={408} sizes="312px" className="absolute top-[-8.61%] left-[-11.89%] block h-[117.22%] w-[123.78%] max-w-none" src={`${IMG}/glow.png`} />
+        <Image alt="" width={312} height={408} sizes={mobile ? "312px" : "(max-width: 1023px) 16px, 312px"} className="absolute top-[-8.61%] left-[-11.89%] block h-[117.22%] w-[123.78%] max-w-none" src={`${IMG}/glow.png`} />
       </div>
     </div>
   );
@@ -57,7 +57,7 @@ function Cta() {
               <span className="absolute inset-0 rounded-full bg-red-600 animate-live-pulse" />
             </span>
             <span className="relative whitespace-nowrap font-mono text-[12px] leading-[1.5] text-white max-sm:text-[10.5px]">
-              LIVE VIRTUAL EVENT: NOV 7TH - NOV 15TH
+              LIVE VIRTUAL EVENT: NOV 25TH - NOV 28TH
             </span>
             <span className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0_0_10px_#e11d48]" />
           </span>
