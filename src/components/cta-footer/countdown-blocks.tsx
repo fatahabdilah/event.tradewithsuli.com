@@ -6,7 +6,7 @@ import { pad2, useRemaining } from "@/components/hero/countdown";
 
 const UNITS = ["DAYS", "HOURS", "MINUTE", "SECONDS"] as const;
 
-/** One digit that rolls up when it changes: the old digit rises out as the new one rises in from below. */
+/** One digit that rolls down when it changes: the new digit drops in from above as the old one drops out. */
 function RollingDigit({ value }: { value: string }) {
   const [roll, setRoll] = useState({ current: value, previous: null as string | null, key: 0 });
   if (value !== roll.current) setRoll({ current: value, previous: roll.current, key: roll.key + 1 });
@@ -17,7 +17,12 @@ function RollingDigit({ value }: { value: string }) {
         {roll.current}
       </span>
       {roll.previous !== null && (
-        <span key={`out-${roll.key}`} aria-hidden className="absolute inset-0 animate-digit-out">
+        <span
+          key={`out-${roll.key}`}
+          aria-hidden
+          className="absolute inset-0 animate-digit-out"
+          onAnimationEnd={() => setRoll((r) => (r.key === roll.key ? { ...r, previous: null } : r))}
+        >
           {roll.previous}
         </span>
       )}
@@ -38,7 +43,7 @@ export function CountdownBlocks({ deadline, colon }: { deadline: string; colon: 
           <div className="flex flex-col items-center justify-center font-mono leading-[1.5] whitespace-nowrap">
             <span className="flex text-[32.333px] tracking-[2.5867px] text-white tabular-nums max-sm:text-[26px] max-sm:tracking-[1px]">
               <span className="sr-only">{pad2(values[i])}</span>
-              <span aria-hidden className="flex">
+              <span aria-hidden className="flex select-none">
                 {pad2(values[i]).split("").map((digit, d) => (
                   <RollingDigit key={d} value={digit} />
                 ))}

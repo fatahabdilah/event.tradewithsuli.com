@@ -46,19 +46,47 @@ type CoinProps = {
   face: Layer & { src: string };
 };
 
-// A floating crypto coin: motion trail, coin body, color tint and coin face.
-function Coin({ delay, float, blur, trail, coin, tint, face }: CoinProps) {
+function corners({ w, h, m: [a, b, c, d, e, f] }: Layer, pad = 0) {
+  return [
+    [-pad, -pad],
+    [w + pad, -pad],
+    [-pad, h + pad],
+    [w + pad, h + pad],
+  ].map(([x, y]) => [a * x + c * y + e, b * x + d * y + f]);
+}
+
+// A floating crypto coin: motion trail, coin body, color tint and coin face. The coin lives in a box sized to its
+// own bounds (not the whole 1440×888 frame), so its blur/float/entrance layers stay small on phones.
+function Coin({ delay, float, blur, trail: rawTrail, coin: rawCoin, tint: rawTint, face: rawFace }: CoinProps) {
+  const spill = (blur ?? 0) * 3 + 4;
+  const pts = [...corners(rawTrail, rawTrail.pad), ...corners(rawCoin), ...corners(rawFace)];
+  const box = {
+    x: Math.min(...pts.map((p) => p[0])) - spill,
+    y: Math.min(...pts.map((p) => p[1])) - spill,
+    r: Math.max(...pts.map((p) => p[0])) + spill,
+    b: Math.max(...pts.map((p) => p[1])) + spill,
+  };
+  const local = <T extends Layer>(l: T): T => ({ ...l, m: [l.m[0], l.m[1], l.m[2], l.m[3], l.m[4] - box.x, l.m[5] - box.y] });
+  const trail = local(rawTrail);
+  const coin = local(rawCoin);
+  const tint = local(rawTint);
+  const face = local(rawFace);
+
   const base = coinCrop(coin);
   const mask = coinCrop(tint);
-  const [a, b, c, d, e, f] = coin.m;
-  const cx = a * (coin.w / 2) + c * (coin.h / 2) + e;
-  const cy = b * (coin.w / 2) + d * (coin.h / 2) + f;
-  const origin = `${cx}px ${cy}px`;
+  const [a, b, c, d, e, f] = rawCoin.m;
+  const cx = a * (rawCoin.w / 2) + c * (rawCoin.h / 2) + e;
+  const cy = b * (rawCoin.w / 2) + d * (rawCoin.h / 2) + f;
+  const origin = `${cx - box.x}px ${cy - box.y}px`;
   return (
     <div
-      className="absolute inset-0 animate-hero-pop"
+      className="absolute animate-hero-pop"
       style={
         {
+          left: box.x,
+          top: box.y,
+          width: box.r - box.x,
+          height: box.b - box.y,
           transformOrigin: origin,
           animationDelay: `${delay}ms`,
           "--coin-from-x": `${PERSON_CENTER.x - cx}px`,
@@ -67,11 +95,10 @@ function Coin({ delay, float, blur, trail, coin, tint, face }: CoinProps) {
       }
     >
       <div
-        className="absolute inset-0 animate-coin-float max-lg:animate-none"
+        className="absolute inset-0 animate-coin-float"
         style={{ transformOrigin: origin, animationDuration: `${float}s`, animationDelay: `${delay}ms` }}
       >
-        {/* Group blur only on desktop: on phones a blurred full-frame layer per coin is too much GPU memory. */}
-        <div className="absolute inset-0 lg:[filter:blur(var(--coin-blur))]" style={blur ? ({ "--coin-blur": `${blur}px` } as CSSProperties) : undefined}>
+        <div className="absolute inset-0" style={blur ? { filter: `blur(${blur}px)` } : undefined}>
           <div style={layerStyle(trail)}>
             {trail.backdrop && (
               <div
@@ -174,7 +201,7 @@ function HeroArt() {
         {/* Blurred copy of the scene (Figma 445:259894) layered above the HYPE coin so it sits behind "BULL".
             Its sides fade out so no hard edge shows on screens wider than the 1440 column. */}
         <div
-          className="absolute top-[-40px] left-[0.91px] h-[887px] w-[1443px] shadow-[0px_-14.855px_15.867px_0px_rgba(0,0,0,0.38)] max-lg:shadow-none blur-[3.173px] max-lg:blur-none [mask-image:linear-gradient(90deg,transparent,#000_120px,#000_calc(100%-120px),transparent)]"
+          className="absolute top-[-40px] left-[0.91px] h-[887px] w-[1443px] shadow-[0px_-14.855px_15.867px_0px_rgba(0,0,0,0.38)] max-lg:shadow-none blur-[3.173px] [mask-image:linear-gradient(90deg,transparent,#000_120px,#000_calc(100%-120px),transparent)]"
         >
           <div className="absolute inset-0 animate-hero-scene">
             <Image src="/hero/bg-scene-blur.png" alt="" fill priority quality={90} sizes="(max-width: 1023px) 700px, 1443px" className="max-w-none object-cover" />
@@ -295,10 +322,8 @@ export function UrgencyBar() {
   return (
     <div className="fixed inset-x-0 top-0 z-50 flex h-[48px] w-full items-center justify-center border-b border-white/10 bg-[#2a62ff] px-[80px] lg:backdrop-blur-[12px] animate-hero-down [animation-delay:200ms] max-lg:h-[40px] max-lg:px-4">
       <div className="flex items-center gap-[10px]">
-        <span className="relative size-[6px] shrink-0">
-          <span className="absolute inset-[-33.33%]">
-            <img alt="" className="block size-full max-w-none" src="/hero/live-dot.svg" />
-          </span>
+        <span className="relative size-[6px] shrink-0 rounded-full bg-white">
+          <span className="absolute inset-0 rounded-full bg-white animate-live-pulse" />
         </span>
         <div className="flex items-center gap-[14px] font-mono tracking-[0.96px] text-white/55 max-sm:gap-2 max-sm:tracking-[0.3px] max-sm:[&_p]:text-[10px]">
           <p className="whitespace-nowrap text-[12px] leading-normal">
@@ -327,14 +352,25 @@ export function Hero() {
               <p className="font-normal text-white/55">LIVE EVENT</p>
             </div>
           </div>
+          {/* Figma 461:260281 */}
           <a
             href={REGISTER_HREF}
-            className="flex h-[40px] items-center justify-center gap-[8px] rounded-[4px] border border-white/18 bg-white px-[24px] py-[8px] text-black transition-opacity lg:backdrop-blur-[10px] hover:opacity-90 max-lg:h-[36px] max-lg:px-4"
+            className="relative flex items-center justify-center gap-[10px] rounded-[62px] border border-white px-[20px] py-[6px] transition-opacity [filter:drop-shadow(0px_31px_9.5px_rgba(42,98,255,0.13))_drop-shadow(0px_14px_10px_rgba(42,98,255,0.12))] hover:opacity-90 max-lg:px-4 max-lg:py-[5px]"
           >
-            <ArrowIcon variant="dark" />
-            <span className="whitespace-nowrap font-montreal text-[14.76px] leading-[1.4] font-medium">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-[62px] bg-[linear-gradient(99.06deg,#1447d6_1.4587%,#204fd3_36.588%,#4c79f2_81.52%,#779cff_96.534%)]"
+            />
+            <span className="relative flex">
+              <ArrowIcon variant="light" />
+            </span>
+            <span className="relative whitespace-nowrap font-montreal text-[18px] leading-[1.4] font-medium text-white max-lg:text-[15px]">
               Gabung Sekarang
             </span>
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0px_-2.135px_2px_0px_rgba(255,255,255,0.25),inset_0px_3.202px_6.405px_0px_rgba(255,255,255,0.25)]"
+            />
           </a>
         </nav>
       </header>
@@ -361,9 +397,8 @@ export function Hero() {
         {/* Figma 460:260106: live chip, copy, then price (Rp 0 + struck-through normal price tag) and the CTA. */}
         <div className="absolute top-[-14px] left-[802px] flex w-[554px] flex-col items-start gap-[24px] max-lg:static max-lg:w-full max-lg:max-w-[600px] max-lg:items-center max-lg:gap-5">
           <div className="flex animate-hero-up items-center gap-[14.348px] [animation-delay:1200ms] max-lg:gap-[10px]">
-            <span className="relative inline-grid size-[31.565px] shrink-0 max-lg:size-[22px]">
-              <span className="absolute inset-0 rounded-full bg-red-600 opacity-20" />
-              <span className="absolute top-1/2 left-1/2 size-[14px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600 max-lg:size-[10px]" />
+            <span className="relative size-[14px] shrink-0 rounded-full bg-red-600 max-lg:size-[10px]">
+              <span className="absolute inset-0 rounded-full bg-red-600 animate-live-pulse" />
             </span>
             <p className="whitespace-nowrap font-mono text-[17.217px] leading-[1.5] max-lg:text-[13px] max-sm:text-[11px]">
               LIVE VIRTUAL EVENT: NOV 4TH - NOV 7TH
@@ -406,7 +441,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full bg-black max-lg:relative max-lg:z-10 max-lg:mt-auto max-lg:pt-8">
+      <div className="absolute bottom-0 left-0 w-full bg-black max-lg:relative max-lg:z-10 max-lg:mt-auto max-lg:bg-transparent max-lg:pt-8">
         <div className="mx-auto max-w-[1440px] animate-hero-up [animation-delay:1600ms]">
           <Ticker />
         </div>

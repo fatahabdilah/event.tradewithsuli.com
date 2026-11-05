@@ -147,8 +147,8 @@ function EpisodeCard({ episode, state, onSelect }: { episode: Episode; state: Ca
   );
 }
 
-// Faint vertical rule fading in from the top (Figma: #999 → white at 20%, 20% opacity).
-const FADE_RULE = "absolute top-0 h-[831px] w-px bg-[linear-gradient(180deg,rgb(153_153_153/0)_0%,#fff_20%)] opacity-20";
+// Faint vertical rule fading in from the top (Figma: #999 → white at 20%, 20% opacity) and out below the cards.
+const FADE_RULE = "absolute top-0 h-[831px] w-px bg-[linear-gradient(180deg,rgb(153_153_153/0)_0%,#fff_20%,#fff_88%,transparent_100%)] opacity-20";
 // Full strength across the 1440 frame, then darkening gradually all the way to the screen edges.
 const RULE_FADE_MASK =
   "linear-gradient(90deg, transparent 0%, #000 calc(50% - 720px), #000 calc(50% + 720px), transparent 100%)";
@@ -215,7 +215,7 @@ export function Episodes() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-black text-white">
+    <section id="episodes" className="relative w-full overflow-hidden bg-black text-white">
       {/* Horizontal rules reach both screen edges, darkening outside the 1440 frame on wide screens. */}
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[200px] h-px bg-white/20 max-lg:hidden" style={RULE_FADE} />
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[751px] h-px bg-white/20 max-lg:hidden" style={RULE_FADE} />
@@ -224,7 +224,7 @@ export function Episodes() {
         <div aria-hidden className="pointer-events-none absolute inset-0 max-lg:hidden">
           <span className={`${FADE_RULE} left-[80px]`} />
           <span className={`${FADE_RULE} left-[400px]`} />
-          <span className="absolute top-[200px] left-[719px] h-[631px] w-px bg-white/20" />
+          <span className="absolute top-[200px] left-[719px] h-[631px] w-px bg-[linear-gradient(180deg,rgb(255_255_255/0.2)_86%,transparent)]" />
           <span className={`${FADE_RULE} left-[1040px]`} />
           <span className={`${FADE_RULE} left-[1360px]`} />
         </div>

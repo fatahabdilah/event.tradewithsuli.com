@@ -53,7 +53,9 @@ function Cta() {
         <div className="flex w-full flex-col items-start gap-[24px]">
           <span className="relative flex items-center justify-center gap-[10px] rounded-[24px] px-[15px] py-[8px]">
             <span className="absolute inset-0 rounded-[24px] bg-white/5 backdrop-blur-[20px] max-lg:bg-white/8 max-lg:backdrop-blur-none" />
-            <span className="relative size-[12px] rounded-full bg-red-600" />
+            <span className="relative size-[12px] rounded-full bg-red-600">
+              <span className="absolute inset-0 rounded-full bg-red-600 animate-live-pulse" />
+            </span>
             <span className="relative whitespace-nowrap font-mono text-[12px] leading-[1.5] text-white max-sm:text-[10.5px]">
               LIVE VIRTUAL EVENT: NOV 7TH - NOV 15TH
             </span>

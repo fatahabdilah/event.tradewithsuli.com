@@ -144,20 +144,12 @@
   }
 }
 
-/* Phones/tablets: same entrance motion without animating blur filters (costly full-layer re-rasters). */
+/* Phones/tablets: the large hero photo/scene and copy rise without animating a blur filter (a costly re-raster
+   of big layers); coins keep their full blurred pop since their layers are small. */
 @keyframes hero-rise-lite {
   from {
     opacity: 0;
     transform: translateY(160px);
-  }
-}
-@keyframes hero-pop-lite {
-  from {
-    opacity: 0;
-    transform: translate(var(--coin-from-x), var(--coin-from-y)) scale(0.15) rotate(-20deg);
-  }
-  70% {
-    transform: scale(1.08);
   }
 }
 @keyframes hero-up-lite {
@@ -166,20 +158,9 @@
     transform: translateY(24px);
   }
 }
-/* Phones/tablets: the hero art (coins, scene, photo) appears without entrance animation. Each animated
-   layer would be rasterised at its full 1440px design size, which exhausts GPU memory in mobile Safari. */
-@media (max-width: 1023px) {
-  .hero-art [class*="animate-"] {
-    animation: none !important;
-  }
-}
-
 @media (max-width: 1023px) {
   .animate-hero-rise {
     animation-name: hero-rise-lite;
-  }
-  .animate-hero-pop {
-    animation-name: hero-pop-lite;
   }
   .animate-hero-up {
     animation-name: hero-up-lite;
@@ -200,17 +181,33 @@
   transform: none;
 }
 
-/* CTA countdown: digits roll up when they change (new digit rises in, old one rises out). */
+/* "LIVE" dots (urgency bar, hero chip, CTA chip): one subtle ring that swells from the dot and fades. */
+@keyframes live-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  70%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+.animate-live-pulse {
+  animation: live-pulse 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* CTA countdown: digits roll down like an odometer counting back (new digit drops in from above). */
 @keyframes digit-in {
   from {
     opacity: 0;
-    transform: translateY(80%);
+    transform: translateY(-80%);
   }
 }
 @keyframes digit-out {
   to {
     opacity: 0;
-    transform: translateY(-80%);
+    transform: translateY(80%);
   }
 }
 .animate-digit-in {
@@ -236,6 +233,7 @@
   }
 
   [class*="animate-hero-"],
+  [class*="animate-live-"],
   [class*="animate-coin-"] {
     animation: none !important;
   }
