@@ -164,8 +164,19 @@ function CallCard({ call, desktopOnly, delay }: { call: Call; desktopOnly?: bool
           <h3 className="font-montreal text-[22.34px] font-medium leading-[26.809px] text-white max-sm:text-[18px]">{call.coin}</h3>
         </div>
         <p className="flex items-center gap-[5.957px] whitespace-nowrap font-montreal text-[17.872px] max-sm:text-[14px]">
-          <span className="font-bold leading-[1.4] text-[#00ff1a]" style={{ textShadow: call.glow }}>
-            {call.gain}
+          {/* Phones: mobile Safari clips very wide text-shadows into a box, so a tight text glow plus a soft
+              radial light behind the number stand in for the wide desktop neon. */}
+          <span className="relative">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -inset-x-8 -inset-y-5 bg-[radial-gradient(closest-side,rgb(0_255_26/0.32),transparent)] lg:hidden"
+            />
+            <span
+              className="relative font-bold leading-[1.4] text-[#00ff1a] max-lg:[text-shadow:0_0_4px_#00ff1a,0_0_12px_rgb(0_255_26/0.55)]!"
+              style={{ textShadow: call.glow }}
+            >
+              {call.gain}
+            </span>
           </span>
           <span aria-hidden className="h-[15.585px] w-[1.251px] bg-white/20" />
           <span className="text-white/60">
