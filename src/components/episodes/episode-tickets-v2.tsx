@@ -61,7 +61,9 @@ const TICKETS: Ticket[] = [
 
 // Trims the line box to the capitals, as in Figma, so `top` places the letters themselves.
 const CAP_TRIM = "[text-box:trim-both_cap_alphabetic]";
-const DAY_FADE = "bg-gradient-to-b from-white to-[rgb(153_153_153/0)] to-[62.019%] bg-clip-text text-transparent";
+// Gradient text paints only inside its box, so the cap-trimmed box is padded to also cover round letters that
+// overshoot the cap line (the 3, 0, 2); the stops are in px so the gradient sits where Figma puts it.
+const DAY_FADE = "bg-[linear-gradient(to_bottom,#fff_20px,rgb(153_153_153/0)_97.5px)] bg-clip-text text-transparent";
 
 /** One upright 374×905 ticket (Figma 471:260905): the horizontal ticket artwork turned 90° clockwise. */
 function TicketCard({ ticket, delay }: { ticket: Ticket; delay: number }) {
@@ -85,7 +87,7 @@ function TicketCard({ ticket, delay }: { ticket: Ticket; delay: number }) {
         <p
           key={i}
           aria-hidden
-          className={`absolute top-[86px] inset-x-0 font-bebas text-[178.222px] leading-[1.4] whitespace-nowrap mix-blend-soft-light ${fill} ${CAP_TRIM}`}
+          className={`absolute top-[66px] inset-x-0 pt-[20px] font-bebas text-[178.222px] leading-[1.4] whitespace-nowrap mix-blend-soft-light ${fill} ${CAP_TRIM}`}
         >
           DAY {ticket.day}
         </p>
@@ -118,7 +120,7 @@ function TicketCard({ ticket, delay }: { ticket: Ticket; delay: number }) {
         Preparing for
       </p>
       <p
-        className={`absolute top-[804.09px] left-1/2 -translate-x-1/2 bg-gradient-to-b from-white to-[#2a62ff] to-[120.06%] bg-clip-text font-bebas text-[47.103px] leading-[1.09] tracking-[-1.4131px] whitespace-nowrap text-transparent ${CAP_TRIM}`}
+        className={`absolute top-[798.09px] left-1/2 -translate-x-1/2 py-[6px] bg-[linear-gradient(to_bottom,#fff_6px,#2a62ff_45.62px)] bg-clip-text font-bebas text-[47.103px] leading-[1.09] tracking-[-1.4131px] whitespace-nowrap text-transparent ${CAP_TRIM}`}
       >
         2027 BULLRUN
       </p>
