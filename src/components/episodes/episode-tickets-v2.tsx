@@ -8,8 +8,7 @@ type Ticket = {
   day: number;
   color: string;
   date: string;
-  /** Title in two parts: regular lead-in, then the bold ending. */
-  title: [string, string];
+  title: string;
   points: [string, string, string];
 };
 
@@ -18,7 +17,7 @@ const TICKETS: Ticket[] = [
     day: 1,
     color: "#2a62ff",
     date: "25 Nov 2026",
-    title: ["Kenapa 2027–2028 Adalah", "Bullrun Terakhir?"],
+    title: "Kenapa 2027–2028 Adalah Bullrun Terakhir?",
     points: [
       "Kenapa pola halving bikin 2027–2028 penting",
       "Alasan Suli melihat siklus ini beda dari sebelumnya",
@@ -29,7 +28,7 @@ const TICKETS: Ticket[] = [
     day: 2,
     color: "#545454",
     date: "26 Nov 2026",
-    title: ["Narasi & Altcoin yang", "Bakal 10X di 2027"],
+    title: "Narasi & Altcoin yang Bakal 10X di 2027",
     points: [
       "Sektor yang Suli pantau sebelum ramai dibicarakan",
       "Bedain proyek fundamental dengan yang cuma hype",
@@ -40,7 +39,7 @@ const TICKETS: Ticket[] = [
     day: 3,
     color: "#e38a1d",
     date: "27 Nov 2026",
-    title: ["Bitcoin Bakal Hit", "$1.000.000"],
+    title: "Bitcoin Bakal Hit $1.000.000",
     points: [
       "Skenario dan asumsi di balik angka $1.000.000",
       "Institusi, ETF, dan supply yang makin langka",
@@ -51,7 +50,7 @@ const TICKETS: Ticket[] = [
     day: 4,
     color: "#566eb2",
     date: "28 Nov 2026",
-    title: ["Cara Paling Gampang Mulai", "Trading Crypto Modal 1 Juta"],
+    title: "Cara Paling Gampang Mulai Trading Crypto Modal 1 Juta",
     points: [
       "Setup akun dan exchange yang aman",
       "Cara bagi modal 1 juta biar nggak habis",
@@ -92,7 +91,7 @@ function TicketCard({ ticket, delay }: { ticket: Ticket; delay: number }) {
         </p>
       ))}
 
-      <div className="absolute top-[414px] inset-x-0 flex justify-center gap-[10px]">
+      <div className="absolute top-[357px] inset-x-0 flex justify-center gap-[10px]">
         {[ticket.date, "19.00 WIB"].map((label) => (
           <span
             key={label}
@@ -104,26 +103,22 @@ function TicketCard({ ticket, delay }: { ticket: Ticket; delay: number }) {
         ))}
       </div>
 
-      <h3 className="absolute top-[454px] inset-x-0 font-montreal text-[24.918px] font-bold leading-[1.2] whitespace-nowrap">
-        <span className="font-normal">{ticket.title[0]}</span>
-        <br />
-        {ticket.title[1]}
-      </h3>
+      <h3 className="absolute top-[397px] left-[36.5px] w-[301.511px] font-bebas text-[31.918px] leading-[1.2] uppercase">{ticket.title}</h3>
 
-      <ul className="absolute top-[531px] inset-x-0 flex flex-col items-center gap-[12px] font-montreal text-[14px] leading-[1.2]">
+      <ul className="absolute top-[496.5px] inset-x-0 flex flex-col items-center gap-[12px] font-montreal text-[17px] leading-[1.2]">
         {ticket.points.map((point, i) => (
           <li key={point} className="contents">
-            {i > 0 && <img alt="" aria-hidden className="block h-px w-[292.5px] max-w-none" src={`${IMG}/v-divider.svg`} />}
-            <span className="whitespace-nowrap opacity-60">{point}</span>
+            {i > 0 && <img alt="" aria-hidden className="block h-px w-[245px] max-w-none" src={`${IMG}/v-divider.svg`} />}
+            <span className="flex h-[40px] w-[245px] items-center justify-center text-balance opacity-80">{point}</span>
           </li>
         ))}
       </ul>
 
-      <p className={`absolute top-[766.5px] inset-x-0 font-montreal text-[21.919px] leading-[1.09] tracking-[-0.6576px] uppercase ${CAP_TRIM}`}>
+      <p className={`absolute top-[781px] inset-x-0 font-montreal text-[16.253px] leading-[1.09] tracking-[-0.4876px] uppercase ${CAP_TRIM}`}>
         Preparing for
       </p>
       <p
-        className={`absolute top-[797.7px] left-1/2 -translate-x-1/2 bg-gradient-to-b from-white to-[#2a62ff] to-[120.06%] bg-clip-text font-bebas text-[63.523px] leading-[1.09] tracking-[-1.9057px] whitespace-nowrap text-transparent ${CAP_TRIM}`}
+        className={`absolute top-[804.09px] left-1/2 -translate-x-1/2 bg-gradient-to-b from-white to-[#2a62ff] to-[120.06%] bg-clip-text font-bebas text-[47.103px] leading-[1.09] tracking-[-1.4131px] whitespace-nowrap text-transparent ${CAP_TRIM}`}
       >
         2027 BULLRUN
       </p>
