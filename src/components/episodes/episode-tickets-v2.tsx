@@ -108,28 +108,35 @@ function TicketCard({ ticket, delay }: { ticket: Ticket; delay: number }) {
         </p>
       ))}
 
-      <div className="absolute top-[357px] inset-x-0 flex justify-center gap-[10px]">
-        {[ticket.date, "19.00 WIB"].map((label) => (
-          <span
-            key={label}
-            className="rounded-full px-[9.55px] py-[3.183px] font-montreal text-[12.733px] font-medium leading-[1.4] whitespace-nowrap"
-            style={{ backgroundColor: ticket.color }}
-          >
-            {label}
-          </span>
-        ))}
+      {/* Date, title and points stack in normal flow (the gaps reproduce Figma's 357/397/496.5px lines), anchored
+          to where the last point ends (664.5px). Text enlarged by an in-app browser's font scaling then grows the
+          block up into the empty space under the day number instead of overlapping or running into the stub. */}
+      <div className="absolute inset-x-0 bottom-[240.5px] flex flex-col items-center">
+        <div className="flex justify-center gap-[10px]">
+          {[ticket.date, "19.00 WIB"].map((label) => (
+            <span
+              key={label}
+              className="rounded-full px-[9.55px] py-[3.183px] font-montreal text-[12.733px] font-medium leading-[1.4] whitespace-nowrap"
+              style={{ backgroundColor: ticket.color }}
+            >
+              {label}
+            </span>
+          ))}
+        </div>
+
+        <h3 className="mt-[15.6px] flex min-h-[76.6px] w-[301.511px] items-start justify-center font-bebas text-[31.918px] leading-[1.2] uppercase">
+          {ticket.title}
+        </h3>
+
+        <ul className="mt-[22.9px] flex flex-col items-center gap-[12px] font-montreal text-[17px] leading-[1.2]">
+          {ticket.points.map((point, i) => (
+            <li key={point} className="contents">
+              {i > 0 && <img alt="" aria-hidden className="block h-px w-[245px] max-w-none" src={`${IMG}/v-divider.svg`} />}
+              <span className="flex min-h-[40px] w-[245px] items-center justify-center text-balance opacity-80">{point}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <h3 className="absolute top-[397px] left-[36.5px] w-[301.511px] font-bebas text-[31.918px] leading-[1.2] uppercase">{ticket.title}</h3>
-
-      <ul className="absolute top-[496.5px] inset-x-0 flex flex-col items-center gap-[12px] font-montreal text-[17px] leading-[1.2]">
-        {ticket.points.map((point, i) => (
-          <li key={point} className="contents">
-            {i > 0 && <img alt="" aria-hidden className="block h-px w-[245px] max-w-none" src={`${IMG}/v-divider.svg`} />}
-            <span className="flex h-[40px] w-[245px] items-center justify-center text-balance opacity-80">{point}</span>
-          </li>
-        ))}
-      </ul>
 
       <p className={`absolute top-[781px] inset-x-0 font-montreal text-[16.253px] leading-[1.09] tracking-[-0.4876px] uppercase ${CAP_TRIM}`}>
         Preparing for

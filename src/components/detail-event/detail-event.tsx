@@ -167,17 +167,15 @@ function ZoomWindow() {
           </div>
 
           <div className="relative h-[192.652px] w-full overflow-clip rounded-b-[8.883px] bg-white shadow-[0_0.581px_1.163px_rgba(0,0,0,0.04),0_0.581px_1.163px_rgba(0,0,0,0.04)]">
-            <div className="absolute top-[calc(50%+16.26px)] left-[calc(50%+0.01px)] h-[289.812px] w-[378.643px] -translate-x-1/2 -translate-y-1/2 overflow-hidden">
-              <Image
-                src={`${IMG}/zoom-suli.png`}
-                alt=""
-                width={1264}
-                height={967}
-                sizes="379px"
-                quality={90}
-                className="absolute top-0 left-0 h-[99.99%] w-full max-w-none"
-              />
-            </div>
+            <Image
+              src={`${IMG}/zoom-suli-live.png`}
+              alt=""
+              width={3840}
+              height={2160}
+              sizes="380px"
+              quality={90}
+              className="absolute top-[-11.08px] left-[-1.85px] h-[213px] w-[380px] max-w-none object-cover"
+            />
             <div className="absolute bottom-[5.1px] left-[5.28px] flex items-center gap-[2.802px]">
               {/* Rounded like the main TWS site's NameTag / mic chip (OneOnOne). */}
               <span className={`relative flex h-[17.514px] items-center justify-center rounded-full border-[0.35px] border-white/15 px-[9.808px] py-[2.802px] ${chipShadow}`}>

@@ -299,6 +299,12 @@
   }
 }
 
+/* Keep mobile browsers from inflating text on their own (iOS rotation, Android font boosting). */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
